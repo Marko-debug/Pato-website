@@ -1,0 +1,51 @@
+.home-structure{
+    display: flex;
+    position: relative; 
+    padding-top: 155px;
+}
+
+.home-structure-container{
+    width: 100%;
+    padding-left: 5%;
+    display: flex;
+}
+
+@media only screen and (min-width: 360px) and (max-width: 1900px){
+    .home-structure-container{
+        padding-left: 5%;
+    }
+
+    
+}
+
+@media only screen and (min-width: 1900px) and (max-width: 2500px){
+    .home-structure-container{
+        padding-left: 15%;
+    }
+
+    
+}
+
+@media only screen and (min-width: 2500px) and (max-width: 2900px){
+    .home-structure-container{
+        padding-left: 30%;
+    }
+
+    
+}
+
+@media only screen and (min-width: 2900px){
+    .home-structure-container{
+        padding-left: 35%;
+    }
+
+    
+}
+
+/* @media only screen and (min-width: 1900px){
+    .home-structure-container{
+        padding-left: 40%;
+    }
+
+    
+} */

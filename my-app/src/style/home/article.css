@@ -1,0 +1,127 @@
+.articles{
+    width: 100%;
+}
+
+.title{
+    font-size: 50px;
+    padding: 100px 0px 50px;
+}
+
+.bubble{
+    background-color: #fff;
+    border: 1px solid #cccccc;
+    padding: 50px;
+    border-radius:30px;
+    max-width: 800px;
+    min-width: 600px;
+}
+
+.bubble-m{
+    margin-top: 100px;
+}
+
+.content-title{
+    font-size: 40px;
+    padding-bottom: 20px;
+}
+
+.article-content{
+    font-size: 25px;
+    padding-bottom: 30px;
+    line-height: 1.5;
+}
+
+.article-container{
+    z-index: 1;
+    position: relative;
+}
+
+.bubble-photos{
+    display: flex;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 30px;
+    border-style: dashed;
+}
+
+.bubble-photos img{
+    margin: 1px;
+    max-width: 33%;
+    border-radius: 30px;
+}
+
+.bubble-left{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.bubble-right{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.edit-buttons{
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 50px;
+}
+
+.edit-buttons button{
+    padding: 10px 20px;
+    font-size: 20px;
+    border-radius: 10px 10px 0px 0px;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-buttons button:hover{
+    border-radius: 30px 30px 0px 0px;
+}
+
+.btn-save{
+    color: #fff;
+    background-color: #006622;
+}
+
+.btn-edit{
+    background-color: #ffcc00;
+}
+
+.btn-delete{
+    background-color: #b30000;
+    color: #fff;
+}
+
+.create-container{
+    display: flex;
+    justify-content: center;
+}
+
+.btn-create{
+    background-color:#29a329;
+    color: #fff;
+    padding: 20px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-create:hover{
+    border-radius: 20px;
+}
+
+.content-title-input{
+    padding: 20px;
+    font-size: 30px;
+    border-radius: 10px;
+    border: 1px solid #434344
+}
+
+.article-content-input{
+    padding: 20px;
+    font-size: 20px;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #434344
+}
