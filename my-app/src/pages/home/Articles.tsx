@@ -8,17 +8,24 @@ interface TypeStoredArticles{
     text: {name: string, value: string},    
 }
 
+type TypeNotes = {
+    id: string,
+    title: string,
+    content: string,    
+}
+
 interface PropsArticles{
     // createArticle: (params: any) => any;
     storedArticles: TypeStoredArticles[];
     updateStoredArticles:  () => void
-    
+    notes: TypeNotes[];
 }
 
 interface StateArticles{
     // createArticle: (params: any) => any;
     storedArticles: TypeStoredArticles[];
     updateStoredArticles:  () => void
+    notes: TypeNotes[];
     // setState: (params: any) => void 
 }
 
@@ -37,6 +44,7 @@ export class Articles extends Component<PropsArticles, StateArticles> {
         // createArticle: this.props.createArticle,
         storedArticles: this.props.storedArticles,
         updateStoredArticles: this.props.updateStoredArticles,
+        notes: this.props.notes,
     }
 
     componentDidUpdate() {
@@ -71,7 +79,7 @@ export class Articles extends Component<PropsArticles, StateArticles> {
                         <button className="btn-create" onClick={this.createArticle}>PRIDAŤ NOVINKU</button>
                     </div>
                     <div className="articles-container">
-                        {storedArticles.map((storedArticle: TypeStoredArticles, i: number) => {
+                        {/* {storedArticles.map((storedArticle: TypeStoredArticles, i: number) => {
                             return(
                                 <Article 
                                     key={i} 
@@ -79,6 +87,16 @@ export class Articles extends Component<PropsArticles, StateArticles> {
                                     side={storedArticle.side} 
                                     title={storedArticle.title} 
                                     text={storedArticle.text}/> 
+                            )
+                        })} */}
+                        {this.state.notes.map((note: TypeNotes, i: number) => {
+                            return(
+                                <Article 
+                                    key={i} 
+                                    id={note.id} 
+                                    side={"bubble-right"}
+                                    title={{name: "title", value: note.title}} 
+                                    text={{name: "text", value: note.content}}/> 
                             )
                         })}
                     </div>

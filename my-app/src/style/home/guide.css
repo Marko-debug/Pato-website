@@ -20,7 +20,12 @@
     width: 100%;
     font-size: 20px;
     border-radius: 30px;
-    border: 1px solid #595959;
+    border: none;
+    box-shadow: 0px 4px 18px #989797;
+}
+
+.search-input:hover{
+    box-shadow: 0px 4px 23px #989797;
 }
 
 .guides-headers{

@@ -5,6 +5,7 @@ import { SaveButton } from "./buttons/SaveButton";
 import { EditButton } from "./buttons/EditButton";
 import { DeleteButton } from "./buttons/DeleteButton";
 import { Photos }  from "./Photos";
+import {useApiPost} from '../customHook'
 
 interface PropsArticle{
     id: string,
@@ -43,19 +44,19 @@ export class Article extends React.Component<PropsArticle, StateArticle> {
         side: this.props.side,
         title: this.props.title, 
         text: this.props.text, 
-        areInputsVisible: true
+        areInputsVisible: false
     };
-
 
     onChange = (event: any) => {
         const name = event.target.name;
         let value = event.target.value;
-        console.log(this)
+        console.log(this.props)
 
         onChange(this, name, value)
     }
 
     showInputs = (props: boolean): any => {
+        // useApiPost('http://localhost:8000/api/notes',this.props.text);
         this.setState({areInputsVisible: props})
     }
 
@@ -74,6 +75,7 @@ export class Article extends React.Component<PropsArticle, StateArticle> {
                         <div className="content-title">
                             {areInputsVisible ?
                                 <input 
+                                    // name={title.name}
                                     name={title.name}
                                     value={title.value}
                                     onChange={this.onChange}

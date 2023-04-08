@@ -7,20 +7,28 @@ interface TypeStoredArticles{
     text: {name: string, value: string},    
 }
 
+type TypeNotes = {
+    id: string,
+    title: string,
+    content: string,    
+}
+
 interface PropsGuide{
     // createArticle: (params: any) => any;
     storedArticles: TypeStoredArticles[];
-    
+    notes: TypeNotes[];
 }
 
 interface StateGuide{
     storedArticles: TypeStoredArticles[];
+    notes: TypeNotes[];
 }
 
 export class Guide extends Component<PropsGuide, StateGuide>{
     
     state:StateGuide = {
         storedArticles: this.props.storedArticles,
+        notes: this.props.notes,
     }
 
     // componentDidUpdate() {
@@ -42,10 +50,17 @@ export class Guide extends Component<PropsGuide, StateGuide>{
                 <input className="search-input" type="text" placeholder="Vyhľadať"></input>
     
                 <div className="guides-headers">
-                    {storedArticles.map((storedArticle, i) =>{
+                    {/* {storedArticles.map((storedArticle, i) =>{
                         return(
                             <p key={i}>
                                 {storedArticle.title.value}
+                            </p>
+                        )
+                    })} */}
+                    {this.state.notes.map((note, i) =>{
+                        return(
+                            <p key={i}>
+                                {note.title}
                             </p>
                         )
                     })}

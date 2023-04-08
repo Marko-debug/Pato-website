@@ -19,8 +19,6 @@ interface NewsData{
 export const HomePage = () => {
     const [storedArticles, setStoredArticles] = useState<NewsData[]>([{id: id, side: "bubble-left", title: {name: 'title', value: 'Spýtaj sa o cirkvi'}, text: {name: 'text' ,value:''} }]);
 
-
-
     const updateStoredArticles = (): void => {
         const id = v4();
 
@@ -39,8 +37,9 @@ export const HomePage = () => {
     const data: TApiResponse = useApiGet(
         'http://localhost:8000/api/notes'
       );
-
-    if (!data.loading) console.log(data);
+    // console.log(data.loading)
+    // if(!data.loading) console.log(data.loading)
+    // if (!data.loading && data.data !== undefined) console.log(data.data.notes);
     
     // const updateTitleValue = (title: string)=>{
         
@@ -54,9 +53,13 @@ export const HomePage = () => {
         <Fragment>
             <div className="home-structure">
                 <div className="home-structure-container">
-                    <Articles 
-                        storedArticles={storedArticles} updateStoredArticles={() =>updateStoredArticles()}/>
-                    <Guide storedArticles={storedArticles}/>
+                    { data.data !== undefined? 
+                        <>
+                            <Articles
+                                storedArticles={storedArticles} updateStoredArticles={() => updateStoredArticles()} notes={data.data.notes} />
+                            <Guide storedArticles={storedArticles} notes={data.data.notes} />
+                        </> : 
+                        <div className="loading"> Loading... </div> }
                 </div>
             </div>
         </Fragment>
