@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import NoteModel from "./model";
+import NoteModel from "./models/model";
 import {
     CreateNoteInput,
     FilterQueryInput,
@@ -86,6 +86,34 @@ export const updateNoteController = async (
         });
     }
 };
+
+export const findNoteController = async (
+    req: Request<ParamsInput>,
+    res: Response
+  ) => {
+    try {
+      const note = await NoteModel.findByPk(req.params.noteId);
+  
+      if (!note) {
+        return res.status(404).json({
+          status: "fail",
+          message: "Note with that ID not found",
+        });
+      }
+  
+      res.status(200).json({
+        status: "success",
+        data: {
+          note,
+        },
+      });
+    } catch (error: any) {
+      res.status(500).json({
+        status: "error",
+        message: error.message,
+      });
+    }
+  };
 
 export const findAllNotesController = async (
     req: Request<{}, {}, {}, FilterQueryInput>,

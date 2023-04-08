@@ -2,6 +2,7 @@ import express from 'express';
 import { validate } from "./middleware/validate";
 import {
     createNoteController,
+    findNoteController,
     findAllNotesController,
     deleteNoteController,
     updateNoteController,
@@ -16,7 +17,7 @@ router
     .post(validate(createNoteSchema), createNoteController);
 router
     .route("/:noteId")
-    // .get(findNoteController)
+    .get(findNoteController)
     .patch(validate(updateNoteSchema), updateNoteController)
     .delete(deleteNoteController);
 
