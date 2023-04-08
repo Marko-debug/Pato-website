@@ -62,14 +62,13 @@ export class Article extends React.Component<PropsArticle, StateArticle> {
 
     render(){
         const { id, side, title, text, areInputsVisible } = this.state;
-
         return(
             <div id={id} className={side}>
                 <div className="bubble-m">
                     <div className="edit-buttons">
-                        <SaveButton showInputs={this.showInputs} />
+                        <SaveButton showInputs={this.showInputs} id={id}/>
                         <EditButton showInputs={this.showInputs} />
-                        <DeleteButton />
+                        <DeleteButton id={id}/>
                     </div>
                     <div className="bubble">
                         <div className="content-title">

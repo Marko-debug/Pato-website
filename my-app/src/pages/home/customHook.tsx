@@ -84,7 +84,7 @@ export const useApiDelete = (url: string, id: string): TApiResponse => {
     const getAPIData = async () => {
       setLoading(true);
       try {
-        const apiResponse = await fetch(`${url}/:${id}`, {
+        const apiResponse = await fetch(`${url}/${id}`, {
             method: "DELETE"
         })
         const json = await apiResponse.json();
