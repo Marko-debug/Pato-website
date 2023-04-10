@@ -15,7 +15,7 @@ export const SaveButton = ({ showInputs, id, title, content }: { showInputs: any
                 }
               })
             const json = await response.json();
-            console.log(`json`);
+            console.log(json);
         } catch (error) {
             // setError(error);
         }
