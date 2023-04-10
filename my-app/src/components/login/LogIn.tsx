@@ -72,7 +72,7 @@ class LogIn extends React.Component<PropsLogIn, StateLogIn>{
                                     type="checkbox" />
                                 Pamätať si ma
                             </label>
-                        <button type="submit" className="btn-login-submit" >Potvrdiť</button>
+                        <button type="submit" className="btn-login-submit">Potvrdiť</button>
                         </form>
                     </div>
                 </div>

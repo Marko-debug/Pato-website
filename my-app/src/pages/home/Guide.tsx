@@ -15,19 +15,16 @@ type TypeNotes = {
 
 interface PropsGuide{
     // createArticle: (params: any) => any;
-    storedArticles: TypeStoredArticles[];
     notes: TypeNotes[];
 }
 
 interface StateGuide{
-    storedArticles: TypeStoredArticles[];
     notes: TypeNotes[];
 }
 
 export class Guide extends Component<PropsGuide, StateGuide>{
     
     state:StateGuide = {
-        storedArticles: this.props.storedArticles,
         notes: this.props.notes,
     }
 
@@ -43,7 +40,6 @@ export class Guide extends Component<PropsGuide, StateGuide>{
 
     render(): React.ReactNode {
         
-        const {storedArticles} = this.state;
         return(
             <div className="guides">
                 <h1 className="title-list">List</h1>

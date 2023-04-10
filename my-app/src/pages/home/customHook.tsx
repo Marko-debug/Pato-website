@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 
+const BASE_URL = 'http://localhost:8000/api/notes'
+
 export type TApiResponse = {
     status: Number;
     statusText: String;
@@ -45,7 +47,7 @@ export const useApiGet = (url: string): TApiResponse => {
     const [error, setError] = useState<any>();
     const [loading, setLoading] = useState<boolean>(false);
   
-    const getAPIData = async () => {
+    const postAPIData = async () => {
       setLoading(true);
       try {
         const response = await fetch(url, {
@@ -67,7 +69,7 @@ export const useApiGet = (url: string): TApiResponse => {
     };
   
     useEffect(() => {
-      getAPIData();
+      postAPIData();
     }, []);
 
     return { status, statusText, data, error, loading };

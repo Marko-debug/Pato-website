@@ -4,22 +4,27 @@ import { setInputHeight } from './setInputHeight';
 import { SaveButton } from "./buttons/SaveButton";
 import { EditButton } from "./buttons/EditButton";
 import { DeleteButton } from "./buttons/DeleteButton";
+import { CancelButton } from "./buttons/CancelButton";
+import { UpdateButton } from "./buttons/UpdateButton";
 import { Photos }  from "./Photos";
 import {useApiPost} from '../customHook'
 
 interface PropsArticle{
+    update: boolean;
     id: string,
     side: string, 
     title: {name: string, value: string},
-    text: {name: string, value: string}
+    content: {name: string, value: string},
+    cancelArticle: () => void;  // to the setState is not sending params, so we need to type it
 }
 
 interface StateArticle{
     id: string,
     side: string, 
     title: {name: string, value: string},
-    text: {name: string, value: string},
-    areInputsVisible: boolean
+    content: {name: string, value: string},
+    areInputsVisible: boolean,
+    cancelArticle: () => void; // to the setState is not sending params, so we need to type it
 }
 
 // export const Article = ({id, side, title, text}: PropsArticle) => {
@@ -43,14 +48,16 @@ export class Article extends React.Component<PropsArticle, StateArticle> {
         id: this.props.id,
         side: this.props.side,
         title: this.props.title, 
-        text: this.props.text, 
-        areInputsVisible: false
+        content: this.props.content, 
+        areInputsVisible: false,
+        cancelArticle: this.props.cancelArticle,
     };
 
     onChange = (event: any) => {
-        const name = event.target.name;
+        let name = event.target.name;
+        // let attribute = undefined;
         let value = event.target.value;
-        console.log(this.props)
+        if(name === "text")name = 'content';
 
         onChange(this, name, value)
     }
@@ -61,14 +68,22 @@ export class Article extends React.Component<PropsArticle, StateArticle> {
     }
 
     render(){
-        const { id, side, title, text, areInputsVisible } = this.state;
+        const { id, side, title, content, areInputsVisible } = this.state;
         return(
             <div id={id} className={side}>
                 <div className="bubble-m">
                     <div className="edit-buttons">
-                        <SaveButton showInputs={this.showInputs} id={id}/>
+                        {this.props.update ?
+                            <UpdateButton showInputs={this.showInputs} id={id} title={title.value} content={content.value}/>
+                            : 
+                            <SaveButton showInputs={this.showInputs} id={id} title={title.value} content={content.value}/>
+                        }
                         <EditButton showInputs={this.showInputs} />
-                        <DeleteButton id={id}/>
+                        {this.props.update ?
+                            <DeleteButton id={id}/>
+                            :
+                            <CancelButton cancelArticle={this.state.cancelArticle}/>
+                        }
                     </div>
                     <div className="bubble">
                         <div className="content-title">
@@ -87,13 +102,13 @@ export class Article extends React.Component<PropsArticle, StateArticle> {
                             {areInputsVisible ? 
                                 <input 
                                     // ref={this.nameField}
-                                    name={text.name}
-                                    value={text.value}
+                                    name={content.name}
+                                    value={content.value}
                                     onChange={this.onChange}
                                     // onChange={(event)=>setInputHeight(event, '100px')}
                                     className="article-content-input"
                                     type="text"  
-                                    placeholder="Vložte text..."/> : `${text.value}`
+                                    placeholder="Vložte text..."/> : `${content.value}`
                             }
                         </div>
                         <div>

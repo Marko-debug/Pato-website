@@ -5,9 +5,9 @@ import '../../style/home/guide.css'
 import { Fragment } from 'react';
 import { Articles } from './Articles';
 import { Guide } from './Guide';
-import { v4 } from "uuid";
+// import { v4 } from "uuid";
 import { useApiGet, TApiResponse } from './customHook';
-const id = v4();
+// const id = v4();
 
 interface NewsData{
     id: string,
@@ -17,22 +17,22 @@ interface NewsData{
 }
 
 export const HomePage = () => {
-    const [storedArticles, setStoredArticles] = useState<NewsData[]>([{id: id, side: "bubble-left", title: {name: 'title', value: 'Spýtaj sa o cirkvi'}, text: {name: 'text' ,value:''} }]);
+    // const [storedArticles, setStoredArticles] = useState<NewsData[]>([{id: id, side: "bubble-left", title: {name: 'title', value: 'Vlož nadpis ...'}, text: {name: 'text' ,value:'Vlož obsah ...'} }]);
 
-    const updateStoredArticles = (): void => {
-        const id = v4();
+    // const updateStoredArticles = (): void => {
+    //     // const id = v4();
 
-        const length = storedArticles.length - 1;
-        if(storedArticles[length].side === 'bubble-right'){
-            setStoredArticles(prevArticles => [...prevArticles, {id: id, side: "bubble-left", title: {name:'title', value: ''}, text: {name: 'text', value: ''} }])
-        }
-        else{
-            setStoredArticles(prevArticles => [...prevArticles, {id: id, side: "bubble-right", title: {name:'title', value: ''}, text: {name: 'text', value: ''} }])
-        }
+    //     // const length = storedArticles.length - 1;
+    //     // if(storedArticles[length].side === 'bubble-right'){
+    //     //     setStoredArticles(prevArticles => [...prevArticles, {id: id, side: "bubble-left", title: {name:'title', value: ''}, content: {name: 'text', value: ''} }])
+    //     // }
+    //     // else{
+    //     //     setStoredArticles(prevArticles => [...prevArticles, {id: id, side: "bubble-right", title: {name:'title', value: ''}, content: {name: 'text', value: ''} }])
+    //     // }
 
-        // console.log(storedArticles)
-        console.log("created new article");
-    }
+    //     // console.log(storedArticles)
+    //     console.log("created new article");
+    // }
 
     const data: TApiResponse = useApiGet(
         'http://localhost:8000/api/notes'
@@ -55,9 +55,8 @@ export const HomePage = () => {
                 <div className="home-structure-container">
                     { data.data !== undefined? 
                         <>
-                            <Articles
-                                storedArticles={storedArticles} updateStoredArticles={() => updateStoredArticles()} notes={data.data.notes} />
-                            <Guide storedArticles={storedArticles} notes={data.data.notes} />
+                            <Articles notes={data.data.notes} />
+                            <Guide notes={data.data.notes} />
                         </> : 
                         <div className="loading"> Loading... </div> }
                 </div>

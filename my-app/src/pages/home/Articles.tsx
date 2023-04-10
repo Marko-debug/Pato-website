@@ -1,11 +1,13 @@
 import { Component, ReactNode } from 'react';
 import { Article} from './article/Article'
+import { v4 as uuidv4} from "uuid";
 
-interface TypeStoredArticles{
+interface TypeStoredArticle{
     id: string,
     side: string,
     title: {name: string, value: string},
-    text: {name: string, value: string},    
+    content: {name: string, value: string}, 
+    show: boolean,   
 }
 
 type TypeNotes = {
@@ -15,16 +17,12 @@ type TypeNotes = {
 }
 
 interface PropsArticles{
-    // createArticle: (params: any) => any;
-    storedArticles: TypeStoredArticles[];
-    updateStoredArticles:  () => void
     notes: TypeNotes[];
 }
 
 interface StateArticles{
-    // createArticle: (params: any) => any;
-    storedArticles: TypeStoredArticles[];
-    updateStoredArticles:  () => void
+    storedArticle: TypeStoredArticle;
+    // updateStoredArticles:  () => void
     notes: TypeNotes[];
     // setState: (params: any) => void 
 }
@@ -42,8 +40,9 @@ export class Articles extends Component<PropsArticles, StateArticles> {
 
     state: StateArticles = {
         // createArticle: this.props.createArticle,
-        storedArticles: this.props.storedArticles,
-        updateStoredArticles: this.props.updateStoredArticles,
+        storedArticle: {
+            id: uuidv4(), side: "bubble-left", title: {name: 'title', value: ''}, content: {name: 'text', value: ''}, show: false 
+        },
         notes: this.props.notes,
     }
 
@@ -51,20 +50,46 @@ export class Articles extends Component<PropsArticles, StateArticles> {
         // console.log(this.state.storedArticles.length)
         // console.log(this.props.storedArticles.length)
         // Typical usage (don't forget to compare props):
-        if (this.state.storedArticles.length !== this.props.storedArticles.length){
-            this.setState(this.props)
-            // console.log(this.state.storedArticles)
-        }
-      }
+        // if (this.state.storedArticles.length !== this.props.storedArticles.length){
+        //     this.setState(this.props)
+        //     // console.log(this.state.storedArticles)
+        // }
+    }
+
+    // updateStoredArticles = (): void => {
+    //     // const id = uuidv4();
+    //     // const { storedArticle } = this.state;
+
+    //     // this.setState({id: id, side: "bubble-left", title: {name:'title', value: ''}, content: {name: 'text', value: ''} })
+
+    //     // console.log(storedArticle)
+    //     console.log("created new article");
+    // }
 
     createArticle = () => {
-        this.props.updateStoredArticles();
-        console.log(this.props.storedArticles)
+        const id = uuidv4();
+        const { storedArticle } = this.state;
+        this.setState({
+            storedArticle: {
+                ...storedArticle, id: id, show: true 
+            }
+        });
+        console.log(storedArticle)
+        console.log("created new article");
+    }
+
+    cancelArticle = () => {
+        const { storedArticle } = this.state;
+        this.setState({
+            storedArticle: {
+                ...storedArticle, show: false
+            }
+        })
     }
 
     render(): ReactNode {
         
-        const { storedArticles} = this.state; 
+        const { storedArticle, notes} = this.state; 
         return(
             <div className="articles">
                 <div className="svg-shapes">
@@ -79,24 +104,26 @@ export class Articles extends Component<PropsArticles, StateArticles> {
                         <button className="btn-create" onClick={this.createArticle}>PRIDAŤ NOVINKU</button>
                     </div>
                     <div className="articles-container">
-                        {/* {storedArticles.map((storedArticle: TypeStoredArticles, i: number) => {
-                            return(
+                        { storedArticle.show ? 
                                 <Article 
-                                    key={i} 
+                                    key={"postArticle"} 
+                                    update={false}
                                     id={storedArticle.id} 
                                     side={storedArticle.side} 
                                     title={storedArticle.title} 
-                                    text={storedArticle.text}/> 
-                            )
-                        })} */}
-                        {this.state.notes.map((note: TypeNotes, i: number) => {
+                                    content={storedArticle.content}
+                                    cancelArticle={this.cancelArticle}/>
+                         : null }
+                        {notes.map((note: TypeNotes, i: number) => {
                             return(
                                 <Article 
                                     key={i} 
+                                    update={true}
                                     id={note.id} 
                                     side={"bubble-right"}
                                     title={{name: "title", value: note.title}} 
-                                    text={{name: "text", value: note.content}}/> 
+                                    content={{name: "text", value: note.content}}
+                                    cancelArticle={this.cancelArticle}/>
                             )
                         })}
                     </div>
