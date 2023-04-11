@@ -1,27 +1,15 @@
 import { Component, ReactNode } from 'react';
 import { Article} from './article/Article'
 import { v4 as uuidv4} from "uuid";
+import { ObjectData, TypeNotes} from './article/utilities/InterfacesAndTypes';
 
-interface TypeStoredArticle{
-    id: string,
-    side: string,
-    title: {name: string, value: string},
-    content: {name: string, value: string}, 
-    show: boolean,   
-}
-
-type TypeNotes = {
-    id: string,
-    title: string,
-    content: string,    
-}
 
 interface PropsArticles{
     notes: TypeNotes[];
 }
 
 interface StateArticles{
-    storedArticle: TypeStoredArticle;
+    storedArticle: ObjectData;
     // updateStoredArticles:  () => void
     notes: TypeNotes[];
     // setState: (params: any) => void 
@@ -41,7 +29,7 @@ export class Articles extends Component<PropsArticles, StateArticles> {
     state: StateArticles = {
         // createArticle: this.props.createArticle,
         storedArticle: {
-            id: uuidv4(), side: "bubble-left", title: {name: 'title', value: ''}, content: {name: 'text', value: ''}, show: false 
+            id: uuidv4(), side: "bubble-left", title: {name: 'title', value: ''}, content: {name: 'text', value: ''}, published: 0, show: false 
         },
         notes: this.props.notes,
     }
@@ -65,6 +53,18 @@ export class Articles extends Component<PropsArticles, StateArticles> {
     //     // console.log(storedArticle)
     //     console.log("created new article");
     // }
+
+    // id: string,
+    // title: string,
+    // content: string,    
+    // published: string,
+
+    // id: string,
+    // side: string,
+    // title: {name: string, value: string},
+    // content: {name: string, value: string}, 
+    // published: string,
+    // show: boolean, 
 
     createArticle = () => {
         const id = uuidv4();
@@ -106,13 +106,14 @@ export class Articles extends Component<PropsArticles, StateArticles> {
                     <div className="articles-container">
                         { storedArticle.show ? 
                                 <Article 
-                                    key={"postArticle"} 
-                                    update={false}
-                                    id={storedArticle.id} 
-                                    side={storedArticle.side} 
-                                    title={storedArticle.title} 
-                                    content={storedArticle.content}
-                                    cancelArticle={this.cancelArticle}/>
+                                key={"postArticle"} 
+                                update={false}
+                                id={storedArticle.id} 
+                                side={storedArticle.side} 
+                                title={storedArticle.title} 
+                                content={storedArticle.content}
+                                published={storedArticle.published} 
+                                cancelArticle={this.cancelArticle}/>
                          : null }
                         {notes.map((note: TypeNotes, i: number) => {
                             return(
@@ -123,6 +124,7 @@ export class Articles extends Component<PropsArticles, StateArticles> {
                                     side={"bubble-right"}
                                     title={{name: "title", value: note.title}} 
                                     content={{name: "text", value: note.content}}
+                                    published={note.updatedAt}
                                     cancelArticle={this.cancelArticle}/>
                             )
                         })}

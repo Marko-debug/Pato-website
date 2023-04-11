@@ -1,13 +1,13 @@
 import React from "react";
-import { onChange } from './utils';
-import { setInputHeight } from './setInputHeight';
+import { onChange } from './utilities/utils';
+import { setInputHeight } from './utilities/setInputHeight';
 import { SaveButton } from "./buttons/SaveButton";
 import { EditButton } from "./buttons/EditButton";
 import { DeleteButton } from "./buttons/DeleteButton";
 import { CancelButton } from "./buttons/CancelButton";
 import { UpdateButton } from "./buttons/UpdateButton";
 import { Photos }  from "./Photos";
-import {useApiPost} from '../customHook'
+import { timeSince } from "./countingTime"
 
 interface PropsArticle{
     update: boolean;
@@ -15,6 +15,7 @@ interface PropsArticle{
     side: string, 
     title: {name: string, value: string},
     content: {name: string, value: string},
+    published: number;
     cancelArticle: () => void;  // to the setState is not sending params, so we need to type it
 }
 
@@ -52,6 +53,8 @@ export class Article extends React.Component<PropsArticle, StateArticle> {
         areInputsVisible: false,
         cancelArticle: this.props.cancelArticle,
     };
+
+    published = timeSince(this.props.published)
 
     onChange = (event: any) => {
         let name = event.target.name;
@@ -119,6 +122,16 @@ export class Article extends React.Component<PropsArticle, StateArticle> {
                             </div>
                             {/* <Photos /> */}
                         </div>
+                                { this.props.published !== 0 ? 
+                                    <div className="published"> 
+                                        {this.published}
+                                        {/* <label>
+                                            <strong>Uverejnené:</strong>
+                                        </label>
+                                            {this.props.published} */}
+                                    </div>
+                                 : null
+                                }
                     </div>
                 </div>
             </div>

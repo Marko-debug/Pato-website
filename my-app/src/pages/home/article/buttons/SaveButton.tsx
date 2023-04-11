@@ -17,7 +17,7 @@ export const SaveButton = ({ showInputs, id, title, content }: { showInputs: any
             const json = await response.json();
             console.log(json);
         } catch (error) {
-            // setError(error);
+            console.error(error)
         }
         // useApiPost('http://localhost:8000/api/notes', jsonData)
     }
