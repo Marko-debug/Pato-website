@@ -12,13 +12,13 @@ export const timeSince = (param : any) => {
     const date = (param instanceof Date) ? param : new Date(param);
     const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
     const interval = intervals.find(i => i.seconds < seconds);
-    if(interval !== undefined && [interval.label === 'rok'|| interval.label === 'mesiac' || interval.label === 'dň']){
+    if(interval !== undefined ){
         const count = Math.floor(seconds / interval.seconds);
-        return `Uverejené pred ${count} ${interval.label}${count !== 1 ? 'ami' : 'om'} `;
-    }
-    else if(interval !== undefined && [interval.label === 'hodin'|| interval.label === 'minút' || interval.label === 'sekund']){
-        const count = Math.floor(seconds / interval.seconds);
-        return `Uverejené pred ${count} ${interval.label}${count !== 1 ? 'ami' : 'ou'} `;
+        if( 2592000 > interval.seconds) {
+            return `Uverejené pred ${count} ${interval.label}${count !== 1 ? 'ami' : 'ou'} `;
+        }else{
+            return `Uverejnené ${new Intl.DateTimeFormat('de-DE').format(date)}`
+        }
     }
     else{
         return `Čas uverejnenia je neznámy`

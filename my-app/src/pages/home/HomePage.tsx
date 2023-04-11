@@ -49,6 +49,13 @@ export const HomePage = () => {
 
     // }
 
+    useEffect(() => {
+        if (data) {
+        //   setCurrentTutorial(data);
+          console.log(data);
+        }
+      }, [data]);
+
     return( 
         <Fragment>
             <div className="home-structure">
