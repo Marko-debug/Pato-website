@@ -65,7 +65,7 @@ export const HomePage = () => {
                             <Articles notes={data.data.notes} />
                             <Guide notes={data.data.notes} />
                         </> : 
-                        <div className="loading"> Loading... </div> }
+                        <div className="loading"> Načítavanie ... </div> }
                 </div>
             </div>
         </Fragment>

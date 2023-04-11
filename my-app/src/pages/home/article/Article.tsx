@@ -4,7 +4,7 @@ import { setInputHeight } from './utilities/setInputHeight';
 import { SaveButton } from "./buttons/SaveButton";
 import { EditButton } from "./buttons/EditButton";
 import { DeleteButton } from "./buttons/DeleteButton";
-import { CancelButton } from "./buttons/CancelButton";
+import { CancelButtonPostArticle, CancelButton } from "./buttons/CancelButtonPostArticle";
 import { UpdateButton } from "./buttons/UpdateButton";
 import { Photos }  from "./Photos";
 import { timeSince } from "./countingTime"
@@ -53,8 +53,7 @@ export class Article extends React.Component<PropsArticle, StateArticle> {
         areInputsVisible: false,
         cancelArticle: this.props.cancelArticle,
     };
-
-    published = timeSince(this.props.published)
+    published = timeSince(this.props.published);
 
     onChange = (event: any) => {
         let name = event.target.name;
@@ -76,16 +75,19 @@ export class Article extends React.Component<PropsArticle, StateArticle> {
             <div id={id} className={side}>
                 <div className="bubble-m">
                     <div className="edit-buttons">
-                        {this.props.update ?
+                        { this.props.update ?
                             <UpdateButton showInputs={this.showInputs} id={id} title={title.value} content={content.value}/>
                             : 
                             <SaveButton showInputs={this.showInputs} id={id} title={title.value} content={content.value}/>
                         }
-                        <EditButton showInputs={this.showInputs} />
-                        {this.props.update ?
-                            <DeleteButton id={id}/>
+                        { areInputsVisible
+                            ? 
+                            <CancelButton showInputs={this.showInputs} />
                             :
-                            <CancelButton cancelArticle={this.state.cancelArticle}/>
+                            <>
+                                <EditButton showInputs={this.showInputs} cancelArticle={this.state.cancelArticle} />
+                                <DeleteButton id={id} />
+                            </>
                         }
                     </div>
                     <div className="bubble">
@@ -122,16 +124,16 @@ export class Article extends React.Component<PropsArticle, StateArticle> {
                             </div>
                             {/* <Photos /> */}
                         </div>
-                                { this.props.published !== 0 ? 
-                                    <div className="published"> 
-                                        {this.published}
-                                        {/* <label>
-                                            <strong>Uverejnené:</strong>
-                                        </label>
-                                            {this.props.published} */}
-                                    </div>
-                                 : null
-                                }
+                            { this.props.published !== 0 ? 
+                                <div className="published"> 
+                                    {this.published}
+                                    {/* <label>
+                                        <strong>Uverejnené:</strong>
+                                    </label>
+                                        {this.props.published} */}
+                                </div>
+                                : null
+                            }
                     </div>
                 </div>
             </div>
