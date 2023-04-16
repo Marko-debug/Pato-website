@@ -9,6 +9,10 @@
     z-index: 1;
 }
 
+.guides-container{
+    position: fixed;
+}
+
 .title-list{
     font-size: 30px;
     padding: 100px 0px 30px;
@@ -32,14 +36,21 @@
     margin-top: 50px;
 }
 
-.guides-headers p{
+.guides-headers ul{
     margin: 30px 0px;
-    font-size: 25px;
+    font-size: 22px;
     text-transform: uppercase;
-    font-weight: 800;
+    font-weight: 900;
+    list-style: none;
 }
 
-.guides-headers p:hover{
+.guides-headers a{
+    text-decoration: none;
+    color: #6e6c6c;
+}
+
+.guides-headers a:hover{
     cursor: pointer;
     color: #000000;
 }
+

@@ -14,6 +14,7 @@ export const UpdateButton = ({ showInputs, id, title, content }: { showInputs: a
                     // 'Authorization': `Bearer ${authToken}`,
                 }
               })
+              window.location.assign('/');
             const json = await response.json();
             console.log(json);
         } catch (error) {

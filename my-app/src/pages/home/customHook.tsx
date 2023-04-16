@@ -10,7 +10,7 @@ export type TApiResponse = {
     loading: Boolean;
   };
   
-export const useApiGet = (url: string): TApiResponse => {
+export const useApiGet = (url: string):TApiResponse => {
     const [status, setStatus] = useState<Number>(0);
     const [statusText, setStatusText] = useState<String>('');
     const [data, setData] = useState<any>();
@@ -37,6 +37,7 @@ export const useApiGet = (url: string): TApiResponse => {
       getAPIData();
     }, []);
 
+    // return [data, error, loading] as const;
     return { status, statusText, data, error, loading };
 };
 
@@ -71,6 +72,10 @@ export const useApiGet = (url: string): TApiResponse => {
     useEffect(() => {
       postAPIData();
     }, []);
+
+    // useEffect(() => {
+      // setData(useApiGet('http://localhost:8000/api/notes'))
+    // }, []);
 
     return { status, statusText, data, error, loading };
 };

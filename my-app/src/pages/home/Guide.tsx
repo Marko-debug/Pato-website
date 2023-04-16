@@ -25,7 +25,7 @@ interface StateGuide{
 export class Guide extends Component<PropsGuide, StateGuide>{
     
     state:StateGuide = {
-        notes: this.props.notes,
+        notes: this.props.notes,  // i dont know but notes has not the same value as this.props.notes
     }
 
     // componentDidUpdate() {
@@ -42,39 +42,30 @@ export class Guide extends Component<PropsGuide, StateGuide>{
         
         return(
             <div className="guides">
-                <h1 className="title-list">List</h1>
-                <input className="search-input" type="text" placeholder="Vyhľadať"></input>
-    
-                <div className="guides-headers">
-                    {/* {storedArticles.map((storedArticle, i) =>{
-                        return(
-                            <p key={i}>
-                                {storedArticle.title.value}
-                            </p>
-                        )
-                    })} */}
-                    {this.state.notes.map((note, i) =>{
-                        return(
-                            <p key={i}>
-                                {note.title}
-                            </p>
-                        )
-                    })}
-                    {/* <p>
-                        What is Lorem Ipsum?
-                    </p>
-                    <p>
-                        What is Lorem Ipsum?
-                    </p>
-                    <p>
-                        What is Lorem Ipsum?
-                    </p>
-                    <p>
-                        What is Lorem Ipsum?
-                    </p>
-                    <p>
-                        What is Lorem Ipsum?
-                    </p> */}
+                <div className="guides-container">
+                    <h1 className="title-list">List</h1>
+                    <input className="search-input" type="text" placeholder="Vyhľadať"></input>
+        
+                    <div className="guides-headers">
+                        {/* {storedArticles.map((storedArticle, i) =>{
+                            return(
+                                <p key={i}>
+                                    {storedArticle.title.value}
+                                </p>
+                            )
+                        })} */}
+                        {this.props.notes.map((note, i) =>{
+                            return(
+                                <ul key={i}>
+                                    <li><a  
+                                        href={`#${note.id}`}  
+                                        key={i}>
+                                        {note.title}
+                                    </a></li>
+                                </ul>
+                            )
+                        })}
+                    </div>
                 </div>
             </div>
         )

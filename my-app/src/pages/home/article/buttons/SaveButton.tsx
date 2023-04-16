@@ -1,5 +1,5 @@
+import { useEffect } from "react";
 import { useApiPost, TApiResponse} from "../../customHook"
-
 
 export const SaveButton = ({ showInputs, id, title, content }: { showInputs: any, id: string, title: string, content: string}):any => {
 
@@ -13,7 +13,9 @@ export const SaveButton = ({ showInputs, id, title, content }: { showInputs: any
                     'Content-Type': 'application/json',
                     // 'Authorization': `Bearer ${authToken}`,
                 }
-              })
+            })
+            window.location.assign('/');
+
             const json = await response.json();
             console.log(json);
         } catch (error) {
@@ -21,6 +23,27 @@ export const SaveButton = ({ showInputs, id, title, content }: { showInputs: any
         }
         // useApiPost('http://localhost:8000/api/notes', jsonData)
     }
+
+    // useEffect(()=>{
+        // const getData = async() => {
+        //     try {
+        //         const response = await fetch('http://localhost:8000/api/notes', {
+        //             method: 'GET',
+        //             headers: {
+        //                 'Content-Type': 'application/json',
+        //                 // 'Authorization': `Bearer ${authToken}`,
+        //             }
+        //         })
+        //         const json = await response.json();
+        //         console.log(json);
+        //         setData()
+        //     } catch (error) {
+        //         console.error(error)
+        //     }
+        // }
+
+        // getData()
+    // }, [])
 
     // function update(){
     //     fetch("http://localhost:8000/api/notes/"+ id, {
@@ -44,7 +67,8 @@ export const SaveButton = ({ showInputs, id, title, content }: { showInputs: any
             className="btn-save" 
             onClick={()=> {
                 postData();
-                showInputs(false)
+                showInputs(false);
+                // getData(); 
             }}  
             >Uložiť
         </button>

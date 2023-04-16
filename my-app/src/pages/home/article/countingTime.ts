@@ -21,6 +21,6 @@ export const timeSince = (param : any) => {
         }
     }
     else{
-        return `Čas uverejnenia je neznámy`
+        return `Uverejnené práve teraz`
     }
 }

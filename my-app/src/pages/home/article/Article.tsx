@@ -1,4 +1,4 @@
-import React from "react";
+import { Dispatch, SetStateAction, Component} from "react";
 import { onChange } from './utilities/utils';
 import { setInputHeight } from './utilities/setInputHeight';
 import { SaveButton } from "./buttons/SaveButton";
@@ -8,6 +8,7 @@ import { CancelButtonPostArticle, CancelButton } from "./buttons/CancelButtonPos
 import { UpdateButton } from "./buttons/UpdateButton";
 import { Photos }  from "./Photos";
 import { timeSince } from "./countingTime"
+import { TypeNotes } from "./utilities/InterfacesAndTypes";
 
 interface PropsArticle{
     update: boolean;
@@ -16,6 +17,11 @@ interface PropsArticle{
     title: {name: string, value: string},
     content: {name: string, value: string},
     published: number;
+    // notes: TypeNotes[],
+    data: any
+    // setData: () => void;
+    setData: Dispatch<SetStateAction<[]>>;
+    deleteNote: (id: string) => void;
     cancelArticle: () => void;  // to the setState is not sending params, so we need to type it
 }
 
@@ -29,7 +35,7 @@ interface StateArticle{
 }
 
 // export const Article = ({id, side, title, text}: PropsArticle) => {
-export class Article extends React.Component<PropsArticle, StateArticle> {
+export class Article extends Component<PropsArticle, StateArticle> {
 
     constructor(props: PropsArticle){
         super(props);
@@ -76,17 +82,34 @@ export class Article extends React.Component<PropsArticle, StateArticle> {
                 <div className="bubble-m">
                     <div className="edit-buttons">
                         { this.props.update ?
-                            <UpdateButton showInputs={this.showInputs} id={id} title={title.value} content={content.value}/>
+                            <UpdateButton 
+                                showInputs={this.showInputs} 
+                                id={id} 
+                                title={title.value} 
+                                content={content.value}/>
                             : 
-                            <SaveButton showInputs={this.showInputs} id={id} title={title.value} content={content.value}/>
+                            <SaveButton 
+                                showInputs={this.showInputs} 
+                                id={id} 
+                                title={title.value} 
+                                content={content.value} 
+                                // getData={this.props.setData}
+                                />
                         }
                         { areInputsVisible
                             ? 
                             <CancelButton showInputs={this.showInputs} />
                             :
                             <>
-                                <EditButton showInputs={this.showInputs} cancelArticle={this.state.cancelArticle} />
-                                <DeleteButton id={id} />
+                                <EditButton 
+                                    showInputs={this.showInputs} 
+                                    cancelArticle={this.state.cancelArticle} />
+                                <DeleteButton 
+                                    id={id} 
+                                    data={this.props.data} 
+                                    setData={this.props.setData}
+                                    deleteNote={this.props.deleteNote}
+                                />
                             </>
                         }
                     </div>

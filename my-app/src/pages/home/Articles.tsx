@@ -1,17 +1,22 @@
-import { Component, ReactNode } from 'react';
+import { Component, ReactNode, Dispatch, SetStateAction } from 'react';
 import { Article} from './article/Article'
 import { v4 as uuidv4} from "uuid";
 import { ObjectData, TypeNotes} from './article/utilities/InterfacesAndTypes';
 
 
 interface PropsArticles{
-    notes: TypeNotes[];
+    // notes: TypeNotes[];
+    data: any;
+    // setData: () => void;
+    setData: Dispatch<SetStateAction<[]>>;
+    deleteNote: (id: string) => void;
 }
 
 interface StateArticles{
     storedArticle: ObjectData;
     // updateStoredArticles:  () => void
-    notes: TypeNotes[];
+    // notes: TypeNotes[];
+    data: any;
     // setState: (params: any) => void 
 }
 
@@ -27,11 +32,10 @@ export class Articles extends Component<PropsArticles, StateArticles> {
     // }
 
     state: StateArticles = {
-        // createArticle: this.props.createArticle,
         storedArticle: {
             id: uuidv4(), side: "bubble-left", title: {name: 'title', value: ''}, content: {name: 'text', value: ''}, published: 0, show: false 
         },
-        notes: this.props.notes,
+        data: this.props.data,   // i dont know but notes has not the same value as this.props.notes
     }
 
     componentDidUpdate() {
@@ -74,7 +78,9 @@ export class Articles extends Component<PropsArticles, StateArticles> {
                 ...storedArticle, id: id, show: true 
             }
         });
-        console.log(storedArticle)
+        // console.log(this.state.notes)
+        // console.log(this.props.notes)
+        // console.log(storedArticle)
         console.log("created new article");
     }
 
@@ -89,7 +95,8 @@ export class Articles extends Component<PropsArticles, StateArticles> {
 
     render(): ReactNode {
         
-        const { storedArticle, notes} = this.state; 
+        const { storedArticle} = this.state; 
+        const { data} = this.props; 
         return(
             <div className="articles">
                 <div className="svg-shapes">
@@ -113,9 +120,12 @@ export class Articles extends Component<PropsArticles, StateArticles> {
                                 title={storedArticle.title} 
                                 content={storedArticle.content}
                                 published={storedArticle.published} 
+                                data={data}
+                                setData={this.props.setData}
+                                deleteNote={this.props.deleteNote}
                                 cancelArticle={this.cancelArticle}/>
                          : null }
-                        {notes.map((note: TypeNotes, i: number) => {
+                        {data.notes.map((note: TypeNotes, i: number) => {
                             return(
                                 <Article 
                                     key={i} 
@@ -125,6 +135,9 @@ export class Articles extends Component<PropsArticles, StateArticles> {
                                     title={{name: "title", value: note.title}} 
                                     content={{name: "text", value: note.content}}
                                     published={note.updatedAt}
+                                    data={data}
+                                    setData={this.props.setData}
+                                    deleteNote={this.props.deleteNote}
                                     cancelArticle={this.cancelArticle}/>
                             )
                         })}
