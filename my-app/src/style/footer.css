@@ -1,0 +1,55 @@
+footer{
+    background-color: #003366;
+    width: 100%;
+    height: 200px;
+    border-radius: 100px 0px 0px 0px;
+    color: #fff;
+}
+
+.footer-container{
+    display: grid;
+}
+
+.social-container{
+    margin: 50px 0px 10px;
+    display: flex;
+    justify-content: center;
+}
+
+a.social {
+    margin: 0 1rem;
+    transition: transform 250ms;
+    display: inline-block;
+  }
+
+.signature{
+    display: flex;
+    justify-content: center;
+}
+
+a.social:hover {
+    transform: translateY(-4px);
+}
+
+a.youtube {
+    margin: 20px;
+    color: #fff;
+}
+
+a.facebook {
+    margin: 20px;
+    color: #fff;
+}
+
+a.tiktok {
+    margin: 20px;
+    color: #fff;
+}
+
+a.instagram {
+    margin: 20px;
+    color: #fff;
+}
+
+  
+  

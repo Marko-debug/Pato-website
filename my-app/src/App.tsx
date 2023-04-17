@@ -6,7 +6,7 @@ import { HomePage } from "./pages/home/HomePage";
 import { AboutPage } from "./pages/about/AboutPage";
 import { ContactPage } from "./pages/contact/ContactPage";
 import LogIn from "./components/login/LogIn";
-// import { Footer } from './components/Footer';
+import { Footer } from './pages/home/Footer';
 
 class App extends React.Component<any, any>{
   constructor(props: any){
@@ -31,6 +31,7 @@ class App extends React.Component<any, any>{
               <Route path="contact" element={<ContactPage />} />
             </Routes>
         </BrowserRouter>
+        <Footer />
         { this.state.isLogInVisible ? <LogIn openAndCloseLogIn={this.openAndCloseLogIn}/> : null }
       </div>
     );

@@ -54,17 +54,16 @@ export class Guide extends Component<PropsGuide, StateGuide>{
                                 </p>
                             )
                         })} */}
+                        <ul>
                         {this.props.notes.map((note, i) =>{
                             return(
-                                <ul key={i}>
-                                    <li><a  
-                                        href={`#${note.id}`}  
-                                        key={i}>
+                                    <li key={i}><a  
+                                        href={`#${note.id}`}>
                                         {note.title}
                                     </a></li>
-                                </ul>
                             )
                         })}
+                        </ul>
                     </div>
                 </div>
             </div>

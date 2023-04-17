@@ -18,7 +18,7 @@ body{
     display: block;
     z-index: 100;
     background: #003366;
-    padding: 20px 30px 30px 30px;
+    padding: 20px 30px 20px 30px;
     border-radius: 0px 0px 0px 100px;
 }
 
@@ -75,4 +75,32 @@ body{
     font-size: 30px;
     font-weight: 600;
     background-color: #003366;
+}
+
+.social-navbar{
+    margin-right: 300px; 
+}
+
+a.social:hover {
+    transform: translateY(-4px);
+}
+
+a.youtube {
+    margin: 20px;
+    color: #fff;
+}
+
+a.facebook {
+    margin: 20px;
+    color: #fff;
+}
+
+a.tiktok {
+    margin: 20px;
+    color: #fff;
+}
+
+a.instagram {
+    margin: 20px;
+    color: #fff;
 }
