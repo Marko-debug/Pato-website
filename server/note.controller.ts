@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import NoteModel from "./models/model";
 import {
     CreateNoteInput,
-    FilterQueryInput,
+    // FilterQueryInput,
     ParamsInput,
     UpdateNoteInput,
 } from "./note.schema";
@@ -116,15 +116,17 @@ export const findNoteController = async (
   };
 
 export const findAllNotesController = async (
-    req: Request<{}, {}, {}, FilterQueryInput>,
+    // req: Request<{}, {}, {}, FilterQueryInput>,
+    req: Request<{}, {}, {}>,
     res: Response
   ) => {
     try {
-      const page = req.query.page || 1;
-      const limit = req.query.limit || 10;
-      const skip = (page - 1) * limit;
+    //   const page = req.query.page || 1;
+    //   const limit = req.query.limit || 10;
+    //   const skip = (page - 1) * limit;
   
-      const notes = await NoteModel.findAll({ limit, offset: skip });
+    //   const notes = await NoteModel.findAll({ limit, offset: skip });
+      const notes = await NoteModel.findAll();
   
       res.status(200).json({
         status: "success",
