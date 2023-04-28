@@ -41,32 +41,36 @@ export class Guide extends Component<PropsGuide, StateGuide>{
     render(): React.ReactNode {
         
         return(
-            <div className="guides">
+            <aside className="guides">
                 <div className="guides-container">
                     <h1 className="title-list">List</h1>
                     <input className="search-input" type="text" placeholder="Vyhľadať"></input>
         
                     <div className="guides-headers">
-                        {/* {storedArticles.map((storedArticle, i) =>{
-                            return(
-                                <p key={i}>
-                                    {storedArticle.title.value}
-                                </p>
-                            )
-                        })} */}
-                        <ul>
-                        {this.props.notes.map((note, i) =>{
-                            return(
-                                    <li key={i}><a  
-                                        href={`#${note.id}`}>
-                                        {note.title}
-                                    </a></li>
-                            )
-                        })}
-                        </ul>
+                        <div>
+                            <div>
+                                {/* {storedArticles.map((storedArticle, i) =>{
+                                    return(
+                                        <p key={i}>
+                                            {storedArticle.title.value}
+                                        </p>
+                                    )
+                                })} */}
+                                <ul>
+                                {this.props.notes.reverse().map((note, i) =>{
+                                    return(
+                                            <li key={i}><a  
+                                                href={`#${note.id}`}>
+                                                {note.title}
+                                            </a></li>
+                                    )
+                                })}
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </aside>
         )
     }
 }

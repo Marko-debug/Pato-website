@@ -125,7 +125,7 @@ export class Articles extends Component<PropsArticles, StateArticles> {
                                 deleteNote={this.props.deleteNote}
                                 cancelArticle={this.cancelArticle}/>
                          : null }
-                        {data.notes.map((note: TypeNotes, i: number) => {
+                        {data.notes.reverse().map((note: TypeNotes, i: number) => {
                             return(
                                 <Article 
                                     key={i} 

@@ -140,20 +140,13 @@ export class Article extends Component<PropsArticle, StateArticle> {
                             }
                         </div>
                         <div>
-                            <div className="bubble-photos">
-                                 <img src={ require('../../../images/image1.jpg') } alt='not found'/>
-                                 <img src={ require('../../../images/image2.jpg') } alt='not found'/>
-                                 <img src={ require('../../../images/image3.jpg') } alt='not found'/>
-                            </div>
-                            {/* <Photos /> */}
+                            <Photos />
+
+                        {/*timer when the post was published */}
                         </div>
                             { this.props.published !== 0 ? 
                                 <div className="published"> 
                                     {this.published}
-                                    {/* <label>
-                                        <strong>Uverejnené:</strong>
-                                    </label>
-                                        {this.props.published} */}
                                 </div>
                                 : null
                             }

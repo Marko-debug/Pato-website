@@ -4,6 +4,8 @@ footer{
     height: 200px;
     border-radius: 100px 0px 0px 0px;
     color: #fff;
+    position: relative;
+    bottom: 0;
 }
 
 .footer-container{

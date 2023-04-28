@@ -1,4 +1,3 @@
-
 * {
     margin: 0;
     padding: 0;
@@ -10,15 +9,21 @@ body{
     background: #e6f2ff;
 }
 
+.website-wrapper{
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
 .header{
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     width: 100%;
     display: block;
     z-index: 100;
     background: #003366;
-    padding: 20px 30px 20px 30px;
+    padding: 5px 20px 10px 30px;
     border-radius: 0px 0px 0px 100px;
 }
 
@@ -44,7 +49,7 @@ body{
     color: #fff;
     text-decoration: none;
     font-weight: 500;
-    margin: 25px 0px 0px 35px;
+    margin: 15px 0px 0px 35px;
     transition: .3s;
 }
 

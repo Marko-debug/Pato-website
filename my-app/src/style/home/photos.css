@@ -1,0 +1,87 @@
+.btn-insert{
+    font-size: 70px;;
+    width: 90px;
+    height: 90px;
+    border-radius: 30px;
+    margin: 0px 30px;
+}
+
+.btn-insert:hover{
+    background-color:#003366;
+    color: #fff;
+    transition: .9s;
+}
+
+.container-photos{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-left, .btn-right{
+    z-index: 500;
+    border-radius: 50%;
+    height: 50px;
+    background-color: #fff;
+    border: none;
+    /* box-shadow: 0px 4px 18px #989797; */
+}
+
+.icon-left, .icon-right{
+    width: 30rem;
+    height: 3rem;
+}
+
+.btn-left:hover, .btn-right:hover{
+    transition: .7s;
+    background-color: #003366;
+}
+
+.image-gallery-icon {
+    color: #fff;
+    transition: all .4s ease-out;
+    appearance: none;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    outline: none;
+    position: absolute;
+    z-index: 4;
+    filter: drop-shadow(0 2px 2px #1a1a1a);
+}
+
+
+
+.image-gallery-left-nav:hover, .image-gallery-right-nav:hover {
+    color: #3c8ee0;
+}
+
+.image-gallery-left-nav {
+    left: 10px;
+}
+
+.image-gallery-right-nav {
+    right: 10px;
+}
+
+.image-container{
+
+}
+
+.gallery-container{
+    display: flex;
+    justify-content: center;
+}
+
+.btn-delete-image{
+    position: absolute;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    transition: all .4s ease-out;
+}
+
+.btn-delete-image:hover{
+    background-color: #cf6868;
+}

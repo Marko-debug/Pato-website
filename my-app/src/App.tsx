@@ -22,7 +22,7 @@ class App extends React.Component<any, any>{
 
   render(){
     return (
-      <div>
+      <div className="website-wrapper">
         <BrowserRouter>
           <NavBar openAndCloseLogIn={this.openAndCloseLogIn} />
             <Routes>
@@ -37,6 +37,5 @@ class App extends React.Component<any, any>{
     );
   }
 }
-
 
 export default App;
