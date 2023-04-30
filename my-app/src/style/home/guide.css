@@ -1,3 +1,4 @@
+
 .guides{
     min-width: 450px;
     margin-left: 40px;
@@ -8,6 +9,7 @@
     z-index: 1;
     clip-path: inset(0);
 }
+
 
 .guides-container{
     position: fixed;

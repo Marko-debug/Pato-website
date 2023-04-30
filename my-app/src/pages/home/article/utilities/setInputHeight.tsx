@@ -4,4 +4,5 @@ export const setInputHeight = (element: any, defualtHeight: string) => {
         target.style.height = defualtHeight;
         target.style.height = `${target.scrollHeight}px`;
     }
+    // console.log('height')
 }

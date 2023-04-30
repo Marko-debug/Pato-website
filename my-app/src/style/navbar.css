@@ -9,6 +9,10 @@ body{
     background: #e6f2ff;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .website-wrapper{
     display: flex;
     flex-direction: column;

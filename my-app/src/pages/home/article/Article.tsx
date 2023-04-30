@@ -75,6 +75,12 @@ export class Article extends Component<PropsArticle, StateArticle> {
         this.setState({areInputsVisible: props})
     }
 
+      // This function is called when the input changes
+    inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setInputHeight(event, '400px');
+        this.onChange(event); 
+    };
+
     render(){
         const { id, side, title, content, areInputsVisible } = this.state;
         return(
@@ -116,31 +122,54 @@ export class Article extends Component<PropsArticle, StateArticle> {
                     <div className="bubble">
                         <div className="content-title">
                             {areInputsVisible ?
-                                <input 
-                                    // name={title.name}
-                                    name={title.name}
-                                    value={title.value}
-                                    onChange={this.onChange}
-                                    className="content-title-input"
-                                    type="text" 
-                                    placeholder="Vložte nadpis..."/> : `${title.value}`
+
+                                <textarea
+                                name={title.name}
+                                value={title.value}
+                                onChange={this.onChange}
+                                // onChange={(event)=>setInputHeight(event, '100px')}
+                                className="content-title-input"
+                                rows={2}
+                                placeholder="Vložte nadpis..." /> : `${title.value}`
+
+                                // <input 
+                                //     // name={title.name}
+                                //     name={title.name}
+                                //     value={title.value}
+                                //     onChange={this.onChange}
+                                //     className="content-title-input"
+                                //     type="text" 
+                                //     contentEditable="true" 
+                                //     placeholder="Vložte nadpis..."/> : `${title.value}`
                             }
                         </div>
                         <div className="article-content">
                             {areInputsVisible ? 
-                                <input 
-                                    // ref={this.nameField}
+
+                                <textarea
                                     name={content.name}
                                     value={content.value}
                                     onChange={this.onChange}
                                     // onChange={(event)=>setInputHeight(event, '100px')}
                                     className="article-content-input"
-                                    type="text"  
-                                    placeholder="Vložte text..."/> : `${content.value}`
+                                    rows={10}
+                                    cols={55}
+                                    placeholder="Vložte text..." /> : `${content.value}`
+
+                                // <input
+                                //         // ref={this.nameField}
+                                //         name={content.name}
+                                //         value={content.value}
+                                //         onChange={this.inputHandler}
+                                //         // onChange={event => {this.onChange; setInputHeight(event, '100px')}}
+                                //         className="article-content-input"
+                                //         type="text"
+                                //         contentEditable="true"
+                                //         placeholder="Vložte text..." /> : `${content.value}`
                             }
                         </div>
                         <div>
-                            <Photos />
+                            <Photos areInputsVisible={this.state.areInputsVisible}/>
 
                         {/*timer when the post was published */}
                         </div>

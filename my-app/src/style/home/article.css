@@ -52,6 +52,7 @@
     border: 1px solid #cccccc;
     border-radius: 30px;
     border-style: dashed;
+    min-height: 110px;
 }
 
 .bubble-photos img{
@@ -129,15 +130,23 @@
 
 .content-title-input{
     padding: 20px;
-    font-size: 30px;
+    font-size: 40px;
     border-radius: 10px;
-    border: 1px solid #434344
+    border: 1px solid #434344;
+    width: 100%;
+    max-width: 700px;
+    /* min-width: 500px; */
 }
 
 .article-content-input{
-    padding: 20px;
-    font-size: 20px;
+    padding-bottom: 30px;
+    line-height: 1.5;
+
+    padding: 10px;
+    font-size: 25px;
     width: 100%;
+    max-width: 700px;
+    min-width: 700px;
     border-radius: 10px;
     border: 1px solid #434344
 }

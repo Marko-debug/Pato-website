@@ -38,6 +38,10 @@ export class Guide extends Component<PropsGuide, StateGuide>{
     //     }
     //   }
 
+    
+
+    
+
     render(): React.ReactNode {
         
         return(
@@ -74,3 +78,4 @@ export class Guide extends Component<PropsGuide, StateGuide>{
         )
     }
 }
+

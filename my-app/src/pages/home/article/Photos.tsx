@@ -2,7 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {useDropzone} from 'react-dropzone';
 import '../../../style/home/photos.css'
 
-export const Photos = (props: any): JSX.Element => {
+export const Photos = ({areInputsVisible}: {areInputsVisible: boolean}): JSX.Element => {
+  const [images, setImages] = useState<any>([]);
+
   const [files, setFiles] = useState<any>([]);
   const {getRootProps, getInputProps} = useDropzone({
     // accept: 'image/*',
@@ -17,7 +19,7 @@ export const Photos = (props: any): JSX.Element => {
     <div 
         // style={thumb} 
         key={file.name}>
-      <div 
+      <div
     //   style={thumbInner}
       >
         <img
@@ -33,6 +35,10 @@ export const Photos = (props: any): JSX.Element => {
     files.forEach((file: { preview: string; }) => URL.revokeObjectURL(file.preview));
   }, [files]);
 
+  useEffect(()=>{
+    
+  }, [images])
+
   return (
     <div className="bubble-photos">
       <section className="container-photos">
@@ -45,28 +51,20 @@ export const Photos = (props: any): JSX.Element => {
         </button>
 
         <div className="gallery-container">
-          <div className="image-container">
-            <button className="btn-delete-image">
-              <svg className="image-gallery-svg" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" height="26" width="30">
-                <polyline points="8 13 18 13"></polyline></svg>
-            </button>
-            <img className="image" src={ require('../../../images/image1.jpg') } alt='not found'/>
-          </div>
-          <div className="image-container">
-            <button className="btn-delete-image">
-              <svg className="image-gallery-svg" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" height="26" width="30">
-                <polyline points="8 13 18 13"></polyline></svg>
-            </button>
-            <img className="image" src={ require('../../../images/image2.jpg') } alt='not found'/>
-          </div>
-          
-          <div className="image-container">
-            <button className="btn-delete-image">
-              <svg className="image-gallery-svg" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" height="26" width="30">
-                <polyline points="8 13 18 13"></polyline></svg>
-            </button>
-            <img className="image" src={ require('../../../images/image3.jpg') } alt='not found'/>
-          </div>
+        {/* rendering images */}
+        {images.map((image:any) =>{
+              return(       
+                <div className="image-container">
+                  <button className="btn-delete-image">
+                    <svg className="image-gallery-svg" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" height="26" width="30">
+                      <polyline points="8 13 18 13"></polyline></svg>
+                  </button>
+                  <img className="image" src= {image} alt='not found'/>
+                  
+                  {/* <img className="image" src={ require('../../../images/image1.jpg') } alt='not found'/> */}
+                </div>
+              );
+            })}
 
         </div>
           <button type="button" className="image-gallery-icon image-gallery-right-nav" aria-label="Next Slide">
@@ -75,11 +73,13 @@ export const Photos = (props: any): JSX.Element => {
             </svg>
           </button>
         
-
-        {/* <div {...getRootProps({className: 'dropzone'})}>
-          <input {...getInputProps()} />
-          <button className="btn-insert">+</button>
-        </div> */}
+        { areInputsVisible ?
+          <div {...getRootProps({className: 'dropzone'})}>
+            {/* <input {...getInputProps()} /> */}
+            <button className="btn-insert">+</button>
+          </div>
+           : null
+        }
         <aside 
           // style={thumbsContainer}
           >
@@ -89,9 +89,3 @@ export const Photos = (props: any): JSX.Element => {
     </div>
   );
 }
-    
-    // <div className="bubble-photos">
-    //     <img src={ require('../../../images/image1.jpg') } alt='not found'/>
-    //     <img src={ require('../../../images/image2.jpg') } alt='not found'/>
-    //     <img src={ require('../../../images/image3.jpg') } alt='not found'/>
-    // </div>
