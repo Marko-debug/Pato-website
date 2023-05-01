@@ -24,11 +24,12 @@ html {
     top: 0;
     left: 0;
     width: 100%;
-    display: block;
+    display: grid;
     z-index: 100;
     background: #003366;
     padding: 5px 20px 10px 30px;
     border-radius: 0px 0px 0px 100px;
+    grid-template-columns: auto auto auto;
 }
 
 .logo{
@@ -39,21 +40,26 @@ html {
     cursor: default;
 }
 
+.navbar-logo{
+    margin: 20px 0px 0px 40px;
+}
+
 .navbar-1{
     display: flex;
     justify-content: space-between;
 }
 
 .navbar-2{
-    display: flex;
-    justify-content: flex-end;
+    display: grid;
+    justify-content: end;
 }
+
 .navbar-2 a{
     font-size: 30px;
     color: #fff;
     text-decoration: none;
     font-weight: 500;
-    margin: 15px 0px 0px 35px;
+    margin: 10px 0px 0px 35px;
     transition: .3s;
 }
 
@@ -62,9 +68,19 @@ html {
     color: #ff8000;
 }
 
+.login-container{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.links-container{
+    padding-right: 50px;
+    margin-top: 10px;
+}
+
 .login{
     color: #fff;
-    padding:  10px;
+    padding: 0px 10px;
     font-size: 20px;
     font-weight: 500;
     background-color: #003366;
@@ -87,6 +103,7 @@ html {
 }
 
 .social-navbar{
+    margin-top: 20px;
     margin-right: 300px; 
 }
 

@@ -51,8 +51,7 @@ export class Guide extends Component<PropsGuide, StateGuide>{
                     <input className="search-input" type="text" placeholder="Vyhľadať"></input>
         
                     <div className="guides-headers">
-                        <div>
-                            <div>
+                        <div className="guides-before-nav">
                                 {/* {storedArticles.map((storedArticle, i) =>{
                                     return(
                                         <p key={i}>
@@ -60,17 +59,19 @@ export class Guide extends Component<PropsGuide, StateGuide>{
                                         </p>
                                     )
                                 })} */}
-                                <ul>
-                                {this.props.notes.reverse().map((note, i) =>{
-                                    return(
-                                            <li key={i}><a  
-                                                href={`#${note.id}`}>
-                                                {note.title}
-                                            </a></li>
-                                    )
-                                })}
-                                </ul>
-                            </div>
+                                <nav className="guides-nav">
+                                    
+                                    <ul>
+                                    {this.props.notes.reverse().map((note, i) =>{
+                                        return(
+                                                <li key={i}><a  
+                                                    href={`#${note.id}`}>
+                                                    {note.title}
+                                                </a></li>
+                                        )
+                                    })}
+                                    </ul>
+                                </nav>
                         </div>
                     </div>
                 </div>

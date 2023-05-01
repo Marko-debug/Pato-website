@@ -30,20 +30,24 @@ export const Photos = ({areInputsVisible}: {areInputsVisible: boolean}): JSX.Ele
     </div>
   ));
 
+  const addImage = () => {
+    setImages([]);
+  }
+
   useEffect(() => {
     // Make sure to revoke the data uris to avoid memory leaks
     files.forEach((file: { preview: string; }) => URL.revokeObjectURL(file.preview));
   }, [files]);
 
   useEffect(()=>{
-    
+
   }, [images])
 
   return (
     <div className="bubble-photos">
       <section className="container-photos">
 
-
+        {/* button for moving back */}
         <button type="button" className="image-gallery-icon image-gallery-left-nav" aria-label="Previous Slide">
           <svg className="image-gallery-svg" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" height="50" width="30">
               <polyline points="25 48 5 26 25 6"></polyline>
@@ -56,6 +60,7 @@ export const Photos = ({areInputsVisible}: {areInputsVisible: boolean}): JSX.Ele
               return(       
                 <div className="image-container">
                   <button className="btn-delete-image">
+                    {/* delete button in svg with polyline */}
                     <svg className="image-gallery-svg" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" height="26" width="30">
                       <polyline points="8 13 18 13"></polyline></svg>
                   </button>
@@ -67,6 +72,7 @@ export const Photos = ({areInputsVisible}: {areInputsVisible: boolean}): JSX.Ele
             })}
 
         </div>
+        {/* button for moving forward */}
           <button type="button" className="image-gallery-icon image-gallery-right-nav" aria-label="Next Slide">
             <svg className="image-gallery-svg" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" height="50" width="30">
               <polyline points="5 48 25 26 5 6"></polyline>
@@ -80,6 +86,7 @@ export const Photos = ({areInputsVisible}: {areInputsVisible: boolean}): JSX.Ele
           </div>
            : null
         }
+        
         <aside 
           // style={thumbsContainer}
           >

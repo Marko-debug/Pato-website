@@ -37,7 +37,7 @@ export class Articles extends Component<PropsArticles, StateArticles> {
         },
         data: this.props.data,   // i dont know but notes has not the same value as this.props.notes
     }
-
+ 
     componentDidUpdate() {
         // console.log(this.state.storedArticles.length)
         // console.log(this.props.storedArticles.length)

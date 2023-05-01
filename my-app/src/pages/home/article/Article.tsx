@@ -1,6 +1,5 @@
 import { Dispatch, SetStateAction, Component} from "react";
 import { onChange } from './utilities/utils';
-import { setInputHeight } from './utilities/setInputHeight';
 import { SaveButton } from "./buttons/SaveButton";
 import { EditButton } from "./buttons/EditButton";
 import { DeleteButton } from "./buttons/DeleteButton";
@@ -77,7 +76,7 @@ export class Article extends Component<PropsArticle, StateArticle> {
 
       // This function is called when the input changes
     inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setInputHeight(event, '400px');
+        // setInputHeight(event, '400px'); it doesnt exist
         this.onChange(event); 
     };
 
@@ -127,7 +126,6 @@ export class Article extends Component<PropsArticle, StateArticle> {
                                 name={title.name}
                                 value={title.value}
                                 onChange={this.onChange}
-                                // onChange={(event)=>setInputHeight(event, '100px')}
                                 className="content-title-input"
                                 rows={2}
                                 placeholder="Vložte nadpis..." /> : `${title.value}`
@@ -150,22 +148,10 @@ export class Article extends Component<PropsArticle, StateArticle> {
                                     name={content.name}
                                     value={content.value}
                                     onChange={this.onChange}
-                                    // onChange={(event)=>setInputHeight(event, '100px')}
                                     className="article-content-input"
                                     rows={10}
                                     cols={55}
                                     placeholder="Vložte text..." /> : `${content.value}`
-
-                                // <input
-                                //         // ref={this.nameField}
-                                //         name={content.name}
-                                //         value={content.value}
-                                //         onChange={this.inputHandler}
-                                //         // onChange={event => {this.onChange; setInputHeight(event, '100px')}}
-                                //         className="article-content-input"
-                                //         type="text"
-                                //         contentEditable="true"
-                                //         placeholder="Vložte text..." /> : `${content.value}`
                             }
                         </div>
                         <div>

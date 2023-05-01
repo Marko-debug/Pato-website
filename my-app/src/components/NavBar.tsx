@@ -22,8 +22,10 @@ class NavBar extends React.Component<PropsNavBar>{
         
         return (
             <header className="header">
-                <div className="navbar-1">
+                <div className="navbar-logo">
                     <NavLink to="#" className="logo">Logo</NavLink>
+                </div>
+                <div className="navbar-1">
                     <div className="social-navbar">
                     <a 
                         href="https://www.facebook.com/"
@@ -46,18 +48,19 @@ class NavBar extends React.Component<PropsNavBar>{
                         <FontAwesomeIcon icon={faTiktok} size="2x" />
                     </a>
                 </div>
-                    <button className="login" onClick={() => this.props.openAndCloseLogIn(true)}>Prihlásiť sa</button>
-                    {/* <div className="icon-login">Prihlásený</div> */}
                 </div>
                 <nav className="navbar-2">
-    
-                    <React.Fragment>
+                    <div className="login-container">
+                        <button className="login" onClick={() => this.props.openAndCloseLogIn(true)}>Prihlásiť sa</button>
+                        {/* <div className="icon-login">Prihlásený</div> */}
+                    </div>
+                    <div className="links-container">
                         <NavLink className="active" to="/">
                             Domov
                         </NavLink>
                         <NavLink to="about">O nás</NavLink>
                         <NavLink to="contact">Kontakt</NavLink>
-                    </React.Fragment>
+                    </div>
                 </nav>
             </header>
         )
