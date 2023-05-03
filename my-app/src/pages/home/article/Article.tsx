@@ -5,7 +5,7 @@ import { EditButton } from "./buttons/EditButton";
 import { DeleteButton } from "./buttons/DeleteButton";
 import { CancelButtonPostArticle, CancelButton } from "./buttons/CancelButtonPostArticle";
 import { UpdateButton } from "./buttons/UpdateButton";
-import { Photos }  from "./Photos";
+import { MyGallery }  from "./MyGallery";
 import { timeSince } from "./countingTime"
 import { TypeNotes } from "./utilities/InterfacesAndTypes";
 
@@ -155,7 +155,13 @@ export class Article extends Component<PropsArticle, StateArticle> {
                             }
                         </div>
                         <div>
-                            <Photos areInputsVisible={this.state.areInputsVisible}/>
+                            <MyGallery areInputsVisible={this.state.areInputsVisible}/>
+                        
+                            <div className="dots-mapping">
+                                <span className="dot" ></span> 
+                                <span className="dot" ></span> 
+                                <span className="dot" ></span> 
+                            </div>
 
                         {/*timer when the post was published */}
                         </div>
