@@ -1,27 +1,38 @@
 import { Component, ReactNode, Dispatch, SetStateAction } from 'react';
 import { Article} from './article/Article'
 import { v4 as uuidv4} from "uuid";
-import { ObjectData, TypeNotes} from './article/utilities/InterfacesAndTypes';
+import { ObjectData, TypeNotes, TypeImages} from './article/utilities/InterfacesAndTypes';
 
 
 interface PropsArticles{
-    // notes: TypeNotes[];
-    data: any;
-    // setData: () => void;
+    notes:TypeNotes[]
+    images: TypeImages[]
     setData: Dispatch<SetStateAction<[]>>;
-    deleteNote: (id: string) => void;
+    setImages: Dispatch<SetStateAction<[]>>;
+    deleteNote: (note_id: string) => void;
+    deleteImage: (image_id: string) => void;
 }
 
 interface StateArticles{
     storedArticle: ObjectData;
-    // updateStoredArticles:  () => void
-    // notes: TypeNotes[];
-    data: any;
-    // setState: (params: any) => void 
+    notes: TypeNotes[];
+    images: TypeImages[];
 }
 
 // export const Articles = () => {    
 export class Articles extends Component<PropsArticles, StateArticles> {
+    
+    constructor(props: PropsArticles){
+        super(props);
+
+        this.state = {
+            storedArticle: {
+                note_id: "", side: "bubble-left", title: {name: 'title', value: ''}, content: {name: 'text', value: ''}, published: 0, images: [], show: false  // images is not need here teoretically but is need in return so it hast to be here
+            },
+            notes: this.props.notes, 
+            images: this.props.images,  
+        }
+    }
 
     // constructor(props: PropsArticles){
     //     super(props);
@@ -31,12 +42,6 @@ export class Articles extends Component<PropsArticles, StateArticles> {
     //     }
     // }
 
-    state: StateArticles = {
-        storedArticle: {
-            id: uuidv4(), side: "bubble-left", title: {name: 'title', value: ''}, content: {name: 'text', value: ''}, published: 0, show: false 
-        },
-        data: this.props.data,   // i dont know but notes has not the same value as this.props.notes
-    }
  
     componentDidUpdate() {
         // console.log(this.state.storedArticles.length)
@@ -75,7 +80,7 @@ export class Articles extends Component<PropsArticles, StateArticles> {
         const { storedArticle } = this.state;
         this.setState({
             storedArticle: {
-                ...storedArticle, id: id, show: true 
+                ...storedArticle, note_id: id, show: true 
             }
         });
         // console.log(this.state.notes)
@@ -96,7 +101,26 @@ export class Articles extends Component<PropsArticles, StateArticles> {
     render(): ReactNode {
         
         const { storedArticle} = this.state; 
-        const { data} = this.props; 
+        const { notes, images} = this.props; 
+        const storedArticleNote = {     
+            note_id: 'none',
+            title: 'none',
+            content: 'none',    
+            createdAt: 0,
+            updatedAt: 0
+        }
+        // const len = images.length;
+        // for (let i = 0; i < len; i++){
+        //     notes.find(element => element.id === images[i].noteNodeId)
+
+        //     this.setState({
+        //         notes: {
+        //             ...notes, images: image 
+        //     })
+        // }
+
+        console.log(this.state.notes);
+        console.log(this.state.images);
         return(
             <div className="articles">
                 <div className="svg-shapes">
@@ -111,33 +135,37 @@ export class Articles extends Component<PropsArticles, StateArticles> {
                         <button className="btn-create" onClick={this.createArticle}>PRIDAŤ NOVINKU</button>
                     </div>
                     <div className="articles-container">
-                        { storedArticle.show ? 
-                                <Article 
-                                key={"postArticle"} 
-                                update={false}
-                                id={storedArticle.id} 
-                                side={storedArticle.side} 
-                                title={storedArticle.title} 
-                                content={storedArticle.content}
-                                published={storedArticle.published} 
-                                data={data}
-                                setData={this.props.setData}
-                                deleteNote={this.props.deleteNote}
-                                cancelArticle={this.cancelArticle}/>
+                        { storedArticle.show ?
+                            <Article 
+                            key={"postArticle"} 
+                            update={false}
+                            note_id={storedArticle.note_id} 
+                            side={storedArticle.side} 
+                            title={storedArticle.title} 
+                            content={storedArticle.content}
+                            published={storedArticle.published} 
+                            images={storedArticle.images}
+                            note={storedArticleNote}
+                            setData={this.props.setData}
+                            deleteNote={this.props.deleteNote}
+                            deleteImage={this.props.deleteImage}
+                            cancelArticle={this.cancelArticle}/> 
                          : null }
-                        {data.notes.reverse().map((note: TypeNotes, i: number) => {
+                        {notes.reverse().map((note: TypeNotes, i: number) => {
                             return(
                                 <Article 
                                     key={i} 
                                     update={true}
-                                    id={note.id} 
+                                    note_id={note.note_id} 
                                     side={"bubble-right"}
                                     title={{name: "title", value: note.title}} 
                                     content={{name: "text", value: note.content}}
                                     published={note.updatedAt}
-                                    data={data}
+                                    images={images}
+                                    note={note}
                                     setData={this.props.setData}
                                     deleteNote={this.props.deleteNote}
+                                    deleteImage={this.props.deleteImage}
                                     cancelArticle={this.cancelArticle}/>
                             )
                         })}

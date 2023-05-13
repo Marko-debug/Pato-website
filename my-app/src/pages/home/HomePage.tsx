@@ -5,29 +5,14 @@ import '../../style/home/guide.css'
 import { Fragment } from 'react';
 import { Articles } from './Articles';
 import { Guide } from './Guide';
-// import { v4 } from "uuid";
 import { useApiGet, TApiResponse } from './customHook';
 import { json } from 'stream/consumers';
-import { TypeNotes } from './article/utilities/InterfacesAndTypes';
-// const id = v4();
-
-interface NewsData{
-    id: string,
-    side: string,
-    title: {name: string, value: string},
-    text: {name: string, value: string},    
-}
-
-type ResponseGetData = {
-    notes: any;
-    result: number;
-    status: string;
-    Promise: void;
-}
+import { TypeNotes, TypeImages } from './article/utilities/InterfacesAndTypes';
 
 export const HomePage = () => {
     // const [data, setData] = useState<TApiResponse>({status: 200, statusText: "OK", loading: false, error: undefined, data: {notes: []} });
     const [data, setData] = useState<any>({notes: [], results: 0, status: '' });
+    const [images, setImages] = useState<any>({images: [], results: 0, status: '' });
 
     // const [storedArticles, setStoredArticles] = useState<NewsData[]>([{id: id, side: "bubble-left", title: {name: 'title', value: 'Vlož nadpis ...'}, text: {name: 'text' ,value:'Vlož obsah ...'} }]);
 
@@ -50,10 +35,10 @@ export const HomePage = () => {
     //     'http://localhost:8000/api/notes'
     //   );
 
-    const deleteNote = (id: string) =>{
-        console.log("removed by funciton in homePage")
+    const deleteNote = (note_id: string) =>{
+        console.log("removed by function in homePage")
         try {
-            fetch(`http://localhost:8000/api/notes/${id}`, { //async/await is not working and i have not figure out, why not
+            fetch(`http://localhost:8000/api/notes/${note_id}`, { //async/await is not working and i have not figure out, why not
                 method: 'DELETE',
             })
             // .then(response =>
@@ -63,9 +48,25 @@ export const HomePage = () => {
             // );
             // .then(()=>console.log('neviem') )
 
-            const newArray = data.notes.filter((note: TypeNotes)=> note.id !== id);
+            const newArray = data.notes.filter((note: TypeNotes)=> note.note_id !== note_id);
             setData({ ...data, notes: newArray})
             console.log("removed")
+        } catch (error){
+            console.error(error)
+        } 
+    }
+
+    const deleteImage = (image_id: string) =>{
+        console.log("removed by function in homePage")
+        console.log(image_id)
+        try {
+            fetch(`http://localhost:8000/api/images/${image_id}`, { //async/await is not working and i have not figure out, why not
+                method: 'DELETE',
+            })
+
+            const newArray = images.images.filter((image: TypeImages)=> image.image_id !== image_id);
+            console.log(newArray)
+            setImages({ ...images, images: newArray})
         } catch (error){
             console.error(error)
         } 
@@ -74,13 +75,16 @@ export const HomePage = () => {
     useEffect(()=>{
         const getData = async()=>{
             try{
-                const response = await fetch("http://localhost:8000/api/notes");
-                const jsonData = await response.json();
-                // console.log(jsonData);
-                setData(jsonData);
+                const responseNotes = await fetch("http://localhost:8000/api/notes"); // fetch for data from table notes
+                const jsonDataNotes = await responseNotes.json();
+                setData(jsonDataNotes);
+                
+                const responseImages = await fetch("http://localhost:8000/api/images"); // fetch for data from table images
+                const jsonDataImages = await responseImages.json();
+                setImages(jsonDataImages);
             } catch (error) {
                 console.error(error)
-                }
+            }
         }
         getData();
     }, [])
@@ -127,7 +131,13 @@ export const HomePage = () => {
                 <div className="home-structure-container">
                     { data !== undefined? 
                         <>
-                            <Articles data={data} setData={setData} deleteNote={deleteNote}/>
+                            <Articles 
+                                notes={data.notes} 
+                                images={images.images} 
+                                setData={setData} 
+                                setImages={setImages} 
+                                deleteNote={deleteNote}
+                                deleteImage={deleteImage}/>
                             <Guide notes={data.notes} />
                         </> : 
                         <div className="loading"> Načítavanie ... </div> }

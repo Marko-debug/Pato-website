@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, Component} from "react";
+import { v4 as uuidv4 } from "uuid";
 import { onChange } from './utilities/utils';
 import { SaveButton } from "./buttons/SaveButton";
 import { EditButton } from "./buttons/EditButton";
@@ -7,29 +8,39 @@ import { CancelButtonPostArticle, CancelButton } from "./buttons/CancelButtonPos
 import { UpdateButton } from "./buttons/UpdateButton";
 import { MyGallery }  from "./MyGallery";
 import { timeSince } from "./countingTime"
-import { TypeNotes } from "./utilities/InterfacesAndTypes";
+import { TypeNotes, TypeImages } from "./utilities/InterfacesAndTypes";
 
 interface PropsArticle{
     update: boolean;
-    id: string,
+    note_id: string,
     side: string, 
     title: {name: string, value: string},
     content: {name: string, value: string},
     published: number;
-    // notes: TypeNotes[],
-    data: any
-    // setData: () => void;
+    images: TypeImages[],
+    note: TypeNotes,
     setData: Dispatch<SetStateAction<[]>>;
-    deleteNote: (id: string) => void;
+    deleteNote: (note_id: string) => void;
+    deleteImage: (image_id: string) => void;
     cancelArticle: () => void;  // to the setState is not sending params, so we need to type it
 }
 
 interface StateArticle{
-    id: string,
+    note_id: string,
     side: string, 
     title: {name: string, value: string},
     content: {name: string, value: string},
+    // note: { id: string,
+    //         title: string,
+    //         content: string,    
+    //         createdAt: number,
+    //         updatedAt: number,
+    //         images: TypeImages[],
+    // },
+    note: any  // to complate the type later
+    images: TypeImages[],
     areInputsVisible: boolean,
+    updateImages: TypeImages[],
     cancelArticle: () => void; // to the setState is not sending params, so we need to type it
 }
 
@@ -51,22 +62,44 @@ export class Article extends Component<PropsArticle, StateArticle> {
     }
 
     state: StateArticle = {
-        id: this.props.id,
+        note_id: this.props.note_id,
         side: this.props.side,
         title: this.props.title, 
         content: this.props.content, 
+        note: this.props.note,
+        images: this.props.images,
         areInputsVisible: false,
         cancelArticle: this.props.cancelArticle,
+        updateImages: []
     };
     published = timeSince(this.props.published);
 
     onChange = (event: any) => {
         let name = event.target.name;
-        // let attribute = undefined;
         let value = event.target.value;
         if(name === "text")name = 'content';
 
         onChange(this, name, value)
+    }
+
+    // Call a function (passed as a prop from the parent component)
+    // to handle the user-selected file 
+    handleChangeImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { note_id, images, updateImages } = this.state;
+        // if(this.len > 9){
+        //     alert(`You are trying to insert more than 10 images`)
+        //     return; 
+        // }
+        const selectedFiles = event.target.files as FileList;
+        const url = URL.createObjectURL(selectedFiles?.[0]);
+        // this.state.images.push( { image_id: uuidv4(), note_id: this.props.note_id, url: url})
+        if(this.props.update === true){
+            this.setState({ updateImages: [...updateImages, { image_id: uuidv4(), note_id: note_id, url: url}]});
+        }
+        else{
+            this.setState({ images: [...images, { image_id: uuidv4(), note_id: note_id, url: url}]});
+            console.log(images);
+        }
     }
 
     showInputs = (props: boolean): any => {
@@ -80,25 +113,33 @@ export class Article extends Component<PropsArticle, StateArticle> {
         this.onChange(event); 
     };
 
+    sortingImagesToNote = () =>{
+        const { note_id, note, images } = this.state;
+        const result = images.filter(image => image.image_id === note_id)
+        this.setState({note: {...note, images: result}})
+    }
+
     render(){
-        const { id, side, title, content, areInputsVisible } = this.state;
+        const { note_id, side, title, content, areInputsVisible, images} = this.state;
+
         return(
-            <div id={id} className={side}>
+            <div id={note_id} className={side}>
                 <div className="bubble-m">
                     <div className="edit-buttons">
                         { this.props.update ?
                             <UpdateButton 
                                 showInputs={this.showInputs} 
-                                id={id} 
+                                note_id={note_id} 
                                 title={title.value} 
-                                content={content.value}/>
+                                content={content.value}
+                                images={this.state.updateImages}/>
                             : 
                             <SaveButton 
                                 showInputs={this.showInputs} 
-                                id={id} 
+                                note_id={note_id} 
                                 title={title.value} 
-                                content={content.value} 
-                                // getData={this.props.setData}
+                                content={content.value}
+                                images={images}
                                 />
                         }
                         { areInputsVisible
@@ -110,16 +151,18 @@ export class Article extends Component<PropsArticle, StateArticle> {
                                     showInputs={this.showInputs} 
                                     cancelArticle={this.state.cancelArticle} />
                                 <DeleteButton 
-                                    id={id} 
-                                    data={this.props.data} 
+                                    note_id={note_id} 
+                                    data={this.props.note}
+                                    images={this.props.images} 
                                     setData={this.props.setData}
                                     deleteNote={this.props.deleteNote}
+                                    deleteImage={this.props.deleteImage}
                                 />
                             </>
                         }
                     </div>
                     <div className="bubble">
-                        <div className="content-title">
+                <div className="content-title">
                             {areInputsVisible ?
 
                                 <textarea
@@ -155,12 +198,22 @@ export class Article extends Component<PropsArticle, StateArticle> {
                             }
                         </div>
                         <div>
-                            <MyGallery areInputsVisible={this.state.areInputsVisible}/>
-                        
+                            <MyGallery
+                                areInputsVisible={areInputsVisible}
+                                note_id={note_id}
+                                images={images}
+                                handleChangeImage={this.handleChangeImage}
+                                deleteImage={this.props.deleteImage}
+                            />
+
                             <div className="dots-mapping">
-                                <span className="dot" ></span> 
-                                <span className="dot" ></span> 
-                                <span className="dot" ></span> 
+                                {
+                                    images.map((image: TypeImages, i: number) =>{
+                                        return (
+                                            <span className="dot" key={i}></span> 
+                                        )
+                                    })
+                                }
                             </div>
 
                         {/*timer when the post was published */}

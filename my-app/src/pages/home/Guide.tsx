@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { TypeNotes } from './article/utilities/InterfacesAndTypes'
 
 interface TypeStoredArticles{
     id: string,
@@ -7,11 +8,11 @@ interface TypeStoredArticles{
     text: {name: string, value: string},    
 }
 
-type TypeNotes = {
-    id: string,
-    title: string,
-    content: string,    
-}
+// type TypeList = {
+//     notes_id: string
+//     title: string,
+//     content: string,    
+// }
 
 interface PropsGuide{
     // createArticle: (params: any) => any;
@@ -20,58 +21,76 @@ interface PropsGuide{
 
 interface StateGuide{
     notes: TypeNotes[];
+    name: string,
 }
 
 export class Guide extends Component<PropsGuide, StateGuide>{
     
-    state:StateGuide = {
-        notes: this.props.notes,  // i dont know but notes has not the same value as this.props.notes
+    constructor(props: PropsGuide){
+        super(props);
+
+        this.state = {
+            notes: this.props.notes,  // i dont know but notes has not the same value as this.props.notes
+            name: '',
+        }
     }
 
     // componentDidUpdate() {
-    //     // console.log(this.state.storedArticles.length)
-    //     // console.log(this.props.storedArticles.length)
-    //     // Typical usage (don't forget to compare props):
-    //     if (this.state.storedArticles.length !== this.props.storedArticles.length){
-    //         this.setState(this.props)
-    //         // console.log(this.state.storedArticles)
-    //     }
+        
     //   }
-
     
+    filter = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const keyword = e.target.value;
 
-    
+        if (keyword !== ''){
+            const results = this.state.notes.filter((note)=>{
+                return note.title.toLowerCase().startsWith(keyword.toLowerCase());
+            })
+            this.setState({ notes: results });
+        }else{
+            this.setState({ notes: this.props.notes });
+        }
+        this.setState({ name: keyword });
+    }
 
     render(): React.ReactNode {
+        const { notes, name } = this.state;
+        console.log(this.state.notes)
         
         return(
             <aside className="guides">
                 <div className="guides-container">
                     <h1 className="title-list">List</h1>
-                    <input className="search-input" type="text" placeholder="Vyhľadať"></input>
+                    <input className="search-input" type="search" value={name} onChange={this.filter} placeholder="Vyhľadať"></input>
         
                     <div className="guides-headers">
                         <div className="guides-before-nav">
-                                {/* {storedArticles.map((storedArticle, i) =>{
+                            <nav className="guides-nav">
+                                
+                                <ul>
+                                    {notes && notes.length > 0 ? (
+                                        notes.reverse().map((note: TypeNotes, i: number)=>(
+                                            <li key={i}>
+                                                <a  
+                                                href={`#${note.note_id}`}>
+                                                {note.title}
+                                                </a>
+                                            </li>
+                                        ))
+                                    )
+                                        :null
+                                    }
+
+                                {/* {this.props.notes.reverse().map((note: TypeNotes, i: number) =>{
                                     return(
-                                        <p key={i}>
-                                            {storedArticle.title.value}
-                                        </p>
+                                            <li key={i}><a  
+                                                href={`#${note.note_id}`}>
+                                                {note.title}
+                                            </a></li>
                                     )
                                 })} */}
-                                <nav className="guides-nav">
-                                    
-                                    <ul>
-                                    {this.props.notes.reverse().map((note, i) =>{
-                                        return(
-                                                <li key={i}><a  
-                                                    href={`#${note.id}`}>
-                                                    {note.title}
-                                                </a></li>
-                                        )
-                                    })}
-                                    </ul>
-                                </nav>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>
