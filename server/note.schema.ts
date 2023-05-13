@@ -2,12 +2,16 @@ import { z } from "zod";
 
 export const createNoteSchema = z.object({
     body: z.object({
+        note_id: z.string(),
         title: z.string({
             required_error: "Title is required",
         }),
         content: z.string({
             required_error: "Content is required",
         })
+        // images: z.blob({
+        //     required_error: "Content is required",
+        // }).partial(),
     })
 })
 
@@ -17,10 +21,10 @@ export const params = z.object({
 
 export const updateNoteSchema = z.object({
     params,
-    body: z
-        .object({
+    body: z.object({
             title: z.string(),
             content: z.string(),
+            // images: z.string(),
         })
         .partial(),
 })

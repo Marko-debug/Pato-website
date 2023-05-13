@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import NoteModel from "./models/model";
+import { NoteModel }  from "./models/model";
 import {
     CreateNoteInput,
     // FilterQueryInput,
@@ -22,17 +22,20 @@ export const createNoteController = async (
     res: Response
 ) => {
     try{
-        const {title, content } = req.body;
+        const {note_id, title, content } = req.body;
 
         const note = await NoteModel.create({
+            note_id,
             title,
             content,
+            // images,
         });
 
         res.status(201).json({
             status: "success",
             data: {
                 note,
+                // images,
             }
         });
     } catch (error: any){
@@ -59,7 +62,7 @@ export const updateNoteController = async (
             {...req.body, updateAt: Date.now() },
             {
                 where: {
-                    id: req.params.noteId,
+                    note_id: req.params.noteId,
                 },
             }
         );
@@ -77,6 +80,7 @@ export const updateNoteController = async (
             status: "sucess",
             data: {
                 note,
+                // images,
             },
         });
     } catch (error: any){
@@ -105,6 +109,7 @@ export const findNoteController = async (
         status: "success",
         data: {
           note,
+        //   images,
         },
       });
     } catch (error: any) {
@@ -132,6 +137,7 @@ export const findAllNotesController = async (
         status: "success",
         results: notes.length,
         notes,
+        // images,
       });
     } catch (error: any) {
       res.status(500).json({
@@ -147,7 +153,7 @@ export const deleteNoteController = async (
 ) => {
     try {
         const result = await NoteModel.destroy({
-            where: {id: req.params.noteId},
+            where: {note_id: req.params.noteId},
             force: true,
         });
         

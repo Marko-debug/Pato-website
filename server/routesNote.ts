@@ -7,6 +7,7 @@ import {
     deleteNoteController,
     updateNoteController,
 } from "./note.controller";
+
 import { createNoteSchema, updateNoteSchema } from "./note.schema";
 
 const router = express.Router();

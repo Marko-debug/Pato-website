@@ -3,7 +3,8 @@ import express, { Request, Response } from "express";
 import morgan from "morgan";
 import cors from "cors";
 import { connectDB, sequelize } from './config/db';
-import noteRouter from './routes';
+import noteRouter from './routesNote';
+import imageRouter from './routesImage';
 // import NoteModel from "./model";
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(
 )
 
 app.use("/api/notes", noteRouter);
+app.use("/api/images", imageRouter);
 
 app.all("*", (req: Request, res: Response) => {
     res.status(404).json({
