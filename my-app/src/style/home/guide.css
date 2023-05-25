@@ -92,6 +92,19 @@
     }
 } */
 
+@media only screen and (min-width: 1000px) and (max-width: 1150px){
+    .guides{
+        min-width: 310px;
+    }
+}
+
+@media only screen and (max-width: 1000px){
+    .guides{
+        min-width: 0px;
+        display: none;
+    }
+}
+
 
 /* width */
 ::-webkit-scrollbar {

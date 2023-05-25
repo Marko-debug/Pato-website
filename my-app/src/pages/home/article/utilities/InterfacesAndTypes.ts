@@ -18,6 +18,6 @@ export type TypeNotes = {
 
 export type TypeImages = {
     image_id: string,
-    note_id: string,
+    noteNoteId: string,
     url: string,
 }

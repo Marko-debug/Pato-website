@@ -30,18 +30,11 @@ export class Articles extends Component<PropsArticles, StateArticles> {
                 note_id: "", side: "bubble-left", title: {name: 'title', value: ''}, content: {name: 'text', value: ''}, published: 0, images: [], show: false  // images is not need here teoretically but is need in return so it hast to be here
             },
             notes: this.props.notes, 
-            images: this.props.images,  
+            images: this.props.images,
         }
     }
-
-    // constructor(props: PropsArticles){
-    //     super(props);
-    //     this.state = {
-    //         storedArticles: this.props.storedArticles,
-    //         updateStoredArticles: this.props.updateStoredArticles,
-    //     }
-    // }
-
+    dSide = ""; // this variable is for saving string because of not available changing the state during rendering
+    noteImages = [];
  
     componentDidUpdate() {
         // console.log(this.state.storedArticles.length)
@@ -54,7 +47,7 @@ export class Articles extends Component<PropsArticles, StateArticles> {
     }
 
     // updateStoredArticles = (): void => {
-    //     // const id = uuidv4();
+    //     // const id = uuidv4()
     //     // const { storedArticle } = this.state;
 
     //     // this.setState({id: id, side: "bubble-left", title: {name:'title', value: ''}, content: {name: 'text', value: ''} })
@@ -98,10 +91,34 @@ export class Articles extends Component<PropsArticles, StateArticles> {
         })
     }
 
+    determineSide = () => {
+        let s = "bubble-right";
+        const prev = this.dSide; 
+        if (prev === "bubble-right" ){
+            // this.setState({side: "bubble-left"});
+            s = "bubble-left";
+        }
+        if (prev === "bubble-left"){
+            // this.setState({side: "bubble-right"});
+            s = "bubble-right"
+        }
+        
+        this.dSide = s
+        // this.setState({ side: s})
+        return s;
+    }
+
+    sortingImagesToNote = (note_id: string) =>{
+        const { images } = this.state;
+        const result = images.filter(image => image.noteNoteId === note_id)
+        return result;
+    }
+
+
     render(): ReactNode {
         
         const { storedArticle} = this.state; 
-        const { notes, images} = this.props; 
+        const { notes } = this.props; 
         const storedArticleNote = {     
             note_id: 'none',
             title: 'none',
@@ -109,6 +126,7 @@ export class Articles extends Component<PropsArticles, StateArticles> {
             createdAt: 0,
             updatedAt: 0
         }
+
         // const len = images.length;
         // for (let i = 0; i < len; i++){
         //     notes.find(element => element.id === images[i].noteNodeId)
@@ -119,12 +137,10 @@ export class Articles extends Component<PropsArticles, StateArticles> {
         //     })
         // }
 
-        console.log(this.state.notes);
-        console.log(this.state.images);
         return(
             <div className="articles">
                 <div className="svg-shapes">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 2000" style={{position: "absolute"}}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 1100" style={{position: "absolute"}}>
                         <circle cx="200" cy="150" r="100" fill="#b3d1ff" stroke="#ffffff" strokeWidth="1"/>
                         <path d="M 0 250 Q 0 500, 160 800 T 400 1000" stroke="black" fill="transparent" strokeDasharray="4"/>
                     </svg>
@@ -152,16 +168,18 @@ export class Articles extends Component<PropsArticles, StateArticles> {
                             cancelArticle={this.cancelArticle}/> 
                          : null }
                         {notes.reverse().map((note: TypeNotes, i: number) => {
+                            const s = this.determineSide() // it is bacause of different side message
+                            const noteImages = this.sortingImagesToNote(note.note_id)
                             return(
                                 <Article 
                                     key={i} 
                                     update={true}
                                     note_id={note.note_id} 
-                                    side={"bubble-right"}
+                                    side={s}
                                     title={{name: "title", value: note.title}} 
                                     content={{name: "text", value: note.content}}
                                     published={note.updatedAt}
-                                    images={images}
+                                    images={noteImages}
                                     note={note}
                                     setData={this.props.setData}
                                     deleteNote={this.props.deleteNote}

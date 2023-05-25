@@ -20,7 +20,9 @@ export function ContactPage(){
                         </div>
                     </div>
                 </div>
-                <img className='photo' alt="Fotka" />
+                <div className="photo-container">
+                    <img className='photo' alt="Fotka" />
+                </div>
             </div>
         </Fragment>
     )

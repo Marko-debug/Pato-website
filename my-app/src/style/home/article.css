@@ -1,6 +1,7 @@
 .articles{
     padding-bottom: 50px;
     width: 100%;
+    /* min-width: 350px; */
 }
 
 .title{
@@ -14,7 +15,7 @@
     padding: 50px 50px 15px 50px;
     border-radius:30px;
     max-width: 800px;
-    min-width: 600px;
+    /* min-width: 350px; */
 }
 
 .bubble-m{
@@ -81,7 +82,6 @@
 .edit-buttons button{
     padding: 10px 20px;
     font-size: 20px;
-    border-radius: 10px 10px 0px 0px;
     border: none;
     cursor: pointer;
 }
@@ -93,20 +93,24 @@
 .btn-save{
     color: #fff;
     background-color: #006622;
+    border-radius: 10px 10px 0px 0px;
 }
 
 .btn-update{
     color: #fff;
     background-color: #084b71;
+    border-radius: 10px 10px 0px 0px;
 }
 
 .btn-edit{
     background-color: #ffcc00;
+    border-radius: 10px 10px 0px 0px;
 }
 
 .btn-delete{
     background-color: #b30000;
     color: #fff;
+    border-radius: 10px 10px 0px 0px;
 }
 
 .create-container{
@@ -166,4 +170,46 @@
     border-radius: 50%;
     display: inline-block;
     transition: background-color 0.6s ease;
+  }
+
+  @media only screen and (max-width: 520px){
+    .edit-buttons button{
+        padding: 10px 10px;
+    }
+    .edit-buttons{
+        display: flex;
+        justify-content: center;
+        padding-right: 0px;
+    }
+    .btn-save{
+        border-radius: 10px 10px 0px 10px;
+    }
+    .btn-update{
+        border-radius: 10px 10px 0px 10px;
+    }
+    .btn-edit{
+        border-radius: 10px 10px 0px 0px;
+    }
+    .btn-delete{
+        border-radius: 10px 10px 10px 0px;
+    }
+  }
+
+  @media only screen and (max-width: 600px){
+    .bubble{
+        padding: 50px 25px 15px 25px;
+    }
+    .title{
+        font-size: 40px;
+    }
+    .create-container{
+        justify-content: start;
+        padding-left: 50px;
+    }
+  }
+
+  @media only screen and (max-width: 700px){
+    .create-container{
+        padding-top: 20px;
+    }
   }

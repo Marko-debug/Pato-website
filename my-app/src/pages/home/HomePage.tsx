@@ -124,6 +124,7 @@ export const HomePage = () => {
     //     }
     // }, [loading]);
     console.log(data.notes)
+    console.log(images.images)
 
     return( 
         <Fragment>
@@ -138,7 +139,9 @@ export const HomePage = () => {
                                 setImages={setImages} 
                                 deleteNote={deleteNote}
                                 deleteImage={deleteImage}/>
-                            <Guide notes={data.notes} />
+                            <Guide 
+                                notes={data.notes} 
+                            />
                         </> : 
                         <div className="loading"> Načítavanie ... </div> }
                 </div>

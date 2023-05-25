@@ -37,7 +37,7 @@ interface StateArticle{
     //         updatedAt: number,
     //         images: TypeImages[],
     // },
-    note: any  // to complate the type later
+    note: any  // to complete the type later
     images: TypeImages[],
     areInputsVisible: boolean,
     updateImages: TypeImages[],
@@ -50,28 +50,19 @@ export class Article extends Component<PropsArticle, StateArticle> {
     constructor(props: PropsArticle){
         super(props);
 
-        // this.nameField = React.createRef();
-
-        //this is option when it would be declare here instead of example below
-        // this.state = {
-        //     id: this.props.id,
-        //     side: this.props.side,
-        //     title: this.props.title, 
-        //     text: this.props.text 
-        // };
+        this.state = {
+            note_id: this.props.note_id,
+            side: this.props.side,
+            title: this.props.title, 
+            content: this.props.content, 
+            note: this.props.note,
+            images: this.props.images,
+            areInputsVisible: false,
+            cancelArticle: this.props.cancelArticle,
+            updateImages: []
+        };
     }
 
-    state: StateArticle = {
-        note_id: this.props.note_id,
-        side: this.props.side,
-        title: this.props.title, 
-        content: this.props.content, 
-        note: this.props.note,
-        images: this.props.images,
-        areInputsVisible: false,
-        cancelArticle: this.props.cancelArticle,
-        updateImages: []
-    };
     published = timeSince(this.props.published);
 
     onChange = (event: any) => {
@@ -94,10 +85,10 @@ export class Article extends Component<PropsArticle, StateArticle> {
         const url = URL.createObjectURL(selectedFiles?.[0]);
         // this.state.images.push( { image_id: uuidv4(), note_id: this.props.note_id, url: url})
         if(this.props.update === true){
-            this.setState({ updateImages: [...updateImages, { image_id: uuidv4(), note_id: note_id, url: url}]});
+            this.setState({ updateImages: [...updateImages, { image_id: uuidv4(), noteNoteId: note_id, url: url}]});
         }
         else{
-            this.setState({ images: [...images, { image_id: uuidv4(), note_id: note_id, url: url}]});
+            this.setState({ images: [...images, { image_id: uuidv4(), noteNoteId: note_id, url: url}]});
             console.log(images);
         }
     }
@@ -112,12 +103,6 @@ export class Article extends Component<PropsArticle, StateArticle> {
         // setInputHeight(event, '400px'); it doesnt exist
         this.onChange(event); 
     };
-
-    sortingImagesToNote = () =>{
-        const { note_id, note, images } = this.state;
-        const result = images.filter(image => image.image_id === note_id)
-        this.setState({note: {...note, images: result}})
-    }
 
     render(){
         const { note_id, side, title, content, areInputsVisible, images} = this.state;

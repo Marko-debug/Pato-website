@@ -2,7 +2,7 @@
 .contact-structure{
     position: relative;
     display: flex;
-    padding: 250px 50px 40px;
+    padding: 0px 50px 40px;
     justify-content: space-between;
 }
 
@@ -10,11 +10,6 @@
     font-family: 'Poppins, sans-serif';
     padding: 100px 50px 150px;
 }
-
-.photo {
-    background-image: url(../../images/man.jpg);
-    margin-right: 80px;
-  }
 
 .contact-title{
     margin-bottom: 60px;
@@ -47,9 +42,25 @@
 }
 
 .photo{
-    width: 30%;
+    width: 400px;
     height: 500px;
     border-radius: 30px;
     border: none;
     box-shadow: 0px 4px 18px #989797;
+    background-image: url(../../images/man.jpg);
+}
+
+@media only screen and (max-width: 1000px){
+    .contact-structure{
+        flex-direction: column;
+    }
+
+    .photo-container{
+        display: flex;
+        justify-content: center;
+    }
+
+    .contact{
+        padding: 100px 50px 50px;
+    }
 }

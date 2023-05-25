@@ -104,7 +104,6 @@ html {
 
 .social-navbar{
     margin-top: 20px;
-    margin-right: 300px; 
 }
 
 a.social:hover {
@@ -129,4 +128,67 @@ a.tiktok {
 a.instagram {
     margin: 20px;
     color: #fff;
+}
+
+.dropbtn{
+    color: #fff;
+    font-size: 20px;
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 10px;
+    border-color: #fff;
+    cursor: pointer;
+}
+
+.dropdown-links-container {
+    display: none;
+    position: absolute;
+    border-radius: 10px 0px 0px 10px;
+    right: 0px;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+.dropdown-links-container a {
+    color: black;
+    padding: 0px 20px 20px 0px;
+    text-decoration: none;
+    display: block;
+}
+
+.show {display: block;}
+
+@media only screen and (min-width: 1000px) {
+    .dropdown{
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 600px){
+    .btn-create{
+        width: 120px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media only screen and (max-width: 1000px){
+    .header{
+        padding: 20px 20px 20px 30px;
+    }
+    .links-container, .login-container{
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1200px){
+    .header{
+        grid-template-columns: auto auto;
+    }
+    .navbar-1{
+        display: none;
+    }
 }

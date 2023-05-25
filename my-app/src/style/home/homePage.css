@@ -15,9 +15,10 @@
     font-size: 50px;
 }
 
-@media only screen and (min-width: 360px) and (max-width: 1900px){
+@media only screen and (max-width: 1000px){
     .home-structure-container{
         padding-left: 5%;
+        padding-right: 5%;
     }
 
     

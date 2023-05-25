@@ -1,12 +1,5 @@
-import React, { Component } from "react"
+import React, { Component, Dispatch, SetStateAction } from 'react';
 import { TypeNotes } from './article/utilities/InterfacesAndTypes'
-
-interface TypeStoredArticles{
-    id: string,
-    side: string,
-    title: {name: string, value: string},
-    text: {name: string, value: string},    
-}
 
 // type TypeList = {
 //     notes_id: string
@@ -30,7 +23,7 @@ export class Guide extends Component<PropsGuide, StateGuide>{
         super(props);
 
         this.state = {
-            notes: this.props.notes,  // i dont know but notes has not the same value as this.props.notes
+            notes: this.props.notes,  // i dont know but notes has not the same value as this.props.notes, i think that, it load this component and send props from parent without data and then in parent will obain data from database but it does not load this child component again
             name: '',
         }
     }
@@ -39,11 +32,25 @@ export class Guide extends Component<PropsGuide, StateGuide>{
         
     //   }
     
+    // filter = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     const keyword = e.target.value;
+
+    //     if (keyword !== ''){
+    //         const results = this.props.noteTitles.filter((note)=>{
+    //             return note.title.toLowerCase().startsWith(keyword.toLowerCase());
+    //         })
+    //         this.setState({ notes: results });
+    //     }else{
+    //         this.setState({ notes: this.props.noteTitles });
+    //     }
+    //     this.setState({ name: keyword });
+    // }
+
     filter = (e: React.ChangeEvent<HTMLInputElement>) => {
         const keyword = e.target.value;
 
         if (keyword !== ''){
-            const results = this.state.notes.filter((note)=>{
+            const results = this.props.notes.filter((note)=>{
                 return note.title.toLowerCase().startsWith(keyword.toLowerCase());
             })
             this.setState({ notes: results });
@@ -54,7 +61,7 @@ export class Guide extends Component<PropsGuide, StateGuide>{
     }
 
     render(): React.ReactNode {
-        const { notes, name } = this.state;
+        const { name, notes } = this.state; // the main problem why is not rendering titles is beacause of this.state.notes does not get data from props on first render
         console.log(this.state.notes)
         
         return(
@@ -69,15 +76,15 @@ export class Guide extends Component<PropsGuide, StateGuide>{
                                 
                                 <ul>
                                     {notes && notes.length > 0 ? (
-                                        notes.reverse().map((note: TypeNotes, i: number)=>(
-                                            <li key={i}>
-                                                <a  
-                                                href={`#${note.note_id}`}>
-                                                {note.title}
-                                                </a>
-                                            </li>
-                                        ))
-                                    )
+                                            notes.reverse().map((note: TypeNotes, i: number)=>(
+                                                <li key={i}>
+                                                    <a  
+                                                    href={`#${note.note_id}`}>
+                                                    {note.title}
+                                                    </a>
+                                                </li>
+                                            ))
+                                        )
                                         :null
                                     }
 

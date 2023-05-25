@@ -13,11 +13,25 @@ interface PropsNavBar{
     openAndCloseLogIn: (param: boolean) => void;
 }
 
-class NavBar extends React.Component<PropsNavBar>{
+interface StateNavBar{
+    active: boolean;
+    class: string;
+}
+
+class NavBar extends React.Component<PropsNavBar, StateNavBar>{
     constructor(props: PropsNavBar){
-        super(props)
+        super(props);
+        this.state = {active: false, class: 'dropdown-links-container'};
     }
     
+    dropMenu = () => {
+        if(this.state.active){
+          this.setState({active: false,class: 'dropdown-links-container'})
+        }else{
+          this.setState({active: true,class: 'dropdown-links-container show'})
+        }
+      }
+
     render(): React.ReactNode {
         
         return (
@@ -60,6 +74,23 @@ class NavBar extends React.Component<PropsNavBar>{
                         </NavLink>
                         <NavLink to="about">O nás</NavLink>
                         <NavLink to="contact">Kontakt</NavLink>
+                    </div>
+
+                    <div className="dropdown">
+                        <button className="dropbtn" onClick={() => this.dropMenu()}>
+                            <svg className="dropdown-menu-svg" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" height="40" width="80">
+                            <polyline points="64 32 24 32"></polyline>
+                            <polyline points="56 22 16 22"></polyline>
+                            <polyline points="64 12 24 12"></polyline>
+                            </svg>
+                        </button>
+                        <div id="dropDown" className={this.state.class}>
+                            <NavLink className="active" to="/">
+                                Domov
+                            </NavLink>
+                            <NavLink to="about">O nás</NavLink>
+                            <NavLink to="contact">Kontakt</NavLink>
+                        </div>
                     </div>
                 </nav>
             </header>

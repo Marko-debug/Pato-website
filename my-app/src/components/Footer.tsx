@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import '../../style/footer.css';
+import '../style/footer.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faYoutube,

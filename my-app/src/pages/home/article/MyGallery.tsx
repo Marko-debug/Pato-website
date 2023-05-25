@@ -163,14 +163,14 @@ export class MyGallery extends Component<PropsMyGallery, StateMyGallery> {
         this.setState({ images: [...filteredImage]});
     }
     
-    slideIndex = 1;
+    // slideIndex = 1;
     // if(images.length > 0) {
     //     showSlides(slideIndex);
     // }
     
     render(){
         const {areInputsVisible, images } = this.props;
-        // console.log(images)
+        console.log(images)
         return (
             <div className="bubble-photos">
             <section className="container-photos">
